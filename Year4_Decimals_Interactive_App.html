@@ -1,0 +1,1974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 4 Maths: Spring Block 4 — Decimals</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tenth-color:#3B82F6;
+  --hundredth-color:#10B981;
+  --divide-color:#F59E0B;
+  --round-color:#8B5CF6;
+  --success:#10B981;
+  --error:#EF4444;
+  --bg-start:#0F172A;
+  --bg-end:#1E293B;
+  --card-bg:rgba(255,255,255,0.07);
+  --card-border:rgba(255,255,255,0.12);
+  --text:#F1F5F9;
+  --text-dim:#94A3B8;
+  --accent:#8B5CF6;
+  --accent-light:#A78BFA;
+  --nav-bg:rgba(15,23,42,.92);
+  --track:rgba(255,255,255,.05);
+}
+body.light{
+  --bg-start:#F8FAFC;
+  --bg-end:#E2E8F0;
+  --card-bg:rgba(255,255,255,0.75);
+  --card-border:rgba(15,23,42,0.12);
+  --text:#0F172A;
+  --text-dim:#475569;
+  --accent:#7C3AED;
+  --accent-light:#6D28D9;
+  --nav-bg:rgba(248,250,252,.92);
+  --track:rgba(15,23,42,.06);
+}
+body.light .slide-title{background:linear-gradient(135deg,#0F172A,#475569);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+body.light .quiz-opt{background:rgba(15,23,42,.04);border-color:rgba(15,23,42,.1)}
+body.light .nl-line{background:rgba(15,23,42,.18)}
+body.light .nl-tick{background:rgba(15,23,42,.45)}
+body.light .nav-btn.back{background:rgba(15,23,42,.08);color:var(--text)}
+body.light .progress-bar-container{background:rgba(15,23,42,.08)}
+body.light .pvc th,body.light .pvc td{color:#0F172A}
+body.light .pvc{background:rgba(255,255,255,.6)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,var(--bg-start),var(--bg-end));color:var(--text);min-height:100vh;overflow:hidden;user-select:none;transition:background .4s ease,color .4s ease}
+
+/* SLIDE SYSTEM */
+.slide{display:none;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:30px 30px 90px;position:relative;animation:fadeIn .5s ease}
+.slide.active{display:flex}
+@keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* NAV */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--nav-bg);backdrop-filter:blur(20px);border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;padding:12px 30px;gap:12px}
+.nav-btn{background:var(--accent);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.nav-btn:hover{background:var(--accent-light);transform:translateY(-2px)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.nav-btn.back{background:rgba(255,255,255,.1)}
+.theme-toggle,.reset-btn{background:transparent;color:var(--text-dim);border:1px solid var(--card-border);border-radius:10px;padding:8px 14px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit}
+.theme-toggle:hover,.reset-btn:hover{color:var(--text);border-color:var(--accent)}
+.nav-center{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+
+/* RESUME TOAST */
+.resume-toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-120%);z-index:200;background:var(--card-bg);backdrop-filter:blur(20px);border:1px solid var(--card-border);border-left:4px solid var(--accent);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 40px rgba(0,0,0,.4);font-size:.95rem;color:var(--text);transition:transform .5s cubic-bezier(.34,1.56,.64,1),opacity .3s;opacity:0;max-width:92vw}
+.resume-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.resume-toast .resume-icon{font-size:1.4rem}
+.resume-toast .resume-msg strong{color:var(--accent-light)}
+.resume-toast button{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:inherit}
+.resume-toast button.ghost{background:transparent;color:var(--text-dim);padding:6px 10px}
+.resume-toast button.ghost:hover{color:var(--text)}
+
+/* HINT */
+.kbd-hint{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);font-size:.78rem;color:var(--text-dim);background:var(--card-bg);border:1px solid var(--card-border);border-radius:100px;padding:6px 14px;backdrop-filter:blur(10px);pointer-events:none;animation:hintFade 6s ease-in-out forwards;opacity:0}
+@keyframes hintFade{0%{opacity:0}10%{opacity:1}80%{opacity:1}100%{opacity:0}}
+.kbd-hint kbd{background:rgba(255,255,255,.1);border:1px solid var(--card-border);border-radius:4px;padding:1px 6px;font-family:'Inter',sans-serif;font-size:.75rem;margin:0 2px}
+
+/* PRINT */
+@media print{
+  body{background:#fff!important;color:#000!important;overflow:visible!important}
+  .nav-bar,.progress-bar-container,.resume-toast,.kbd-hint,.theme-toggle,.reset-btn,.week-badge{display:none!important}
+  .slide{display:none!important;page-break-after:always}
+  .slide.active{display:block!important;min-height:auto!important;padding:0!important;background:#fff!important}
+  .slide-content{max-height:none!important;overflow:visible!important;padding:0!important}
+  .glass-card,.homework-card,.results-card{background:#fff!important;border:1px solid #cbd5e1!important;backdrop-filter:none!important;box-shadow:none!important;color:#000!important;page-break-inside:avoid}
+  .homework-card{border:2px solid #7C3AED!important}
+  h3,.slide-title{color:#0F172A!important;-webkit-text-fill-color:#0F172A!important;background:none!important}
+  .slide-subtitle,.homework-item,.ak-item{color:#1e293b!important}
+  .answer-key{display:block!important;page-break-before:auto}
+  .answer-key[open],.answer-key{margin-top:14px}
+  .answer-key summary{background:#fef3c7!important;color:#92400e!important;border:1px solid #f59e0b!important}
+  .answer-key:not([open]) > *:not(summary){display:block!important}
+  .tier-mild{background:#dcfce7!important;color:#166534!important;border-color:#86efac!important}
+  .tier-medium{background:#fef3c7!important;color:#92400e!important;border-color:#fcd34d!important}
+  .tier-spicy{background:#fee2e2!important;color:#991b1b!important;border-color:#fca5a5!important}
+  strong{color:#0F172A!important}
+  .pvc{border:1px solid #cbd5e1!important}
+  .pvc th,.pvc td{color:#0F172A!important}
+}
+
+.slide-counter{color:var(--text-dim);font-size:.9rem;font-weight:500}
+.progress-bar-container{position:fixed;top:0;left:0;right:0;height:4px;background:var(--track);z-index:101}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--tenth-color));transition:width .4s ease;border-radius:0 2px 2px 0}
+
+/* BADGES */
+.week-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid var(--card-border);border-radius:100px;padding:6px 16px;font-size:.8rem;color:var(--text-dim);margin-bottom:16px;backdrop-filter:blur(10px)}
+.week-badge .dot{width:8px;height:8px;border-radius:50%}
+.dot.w1{background:var(--tenth-color)}.dot.w2{background:var(--hundredth-color)}.dot.w3{background:var(--divide-color)}.dot.w4{background:var(--round-color)}
+
+/* CARDS */
+.glass-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:32px;backdrop-filter:blur(20px);max-width:920px;width:100%}
+.slide-title{font-size:2rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#fff,var(--text-dim));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.slide-subtitle{color:var(--text-dim);font-size:1.05rem;margin-bottom:24px;line-height:1.7}
+
+/* SHAPE ROW */
+.shape-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+.shape-box{text-align:center}
+.shape-box .label{margin-top:8px;font-size:.9rem;color:var(--text-dim);font-weight:500}
+
+/* PLACE VALUE CHART */
+.pvc{border-collapse:separate;border-spacing:0;margin:16px auto;border-radius:12px;overflow:hidden;border:2px solid var(--card-border);background:rgba(255,255,255,.04)}
+.pvc th{padding:12px 28px;font-weight:800;font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--text);border-bottom:2px solid var(--card-border);background:rgba(139,92,246,.12)}
+.pvc th.col-tenth{background:rgba(59,130,246,.18);color:#93C5FD}
+.pvc th.col-hundredth{background:rgba(16,185,129,.18);color:#6EE7B7}
+.pvc th.col-tens{background:rgba(245,158,11,.14);color:#FBBF24}
+.pvc th.dp{padding:12px 6px;color:var(--text-dim);background:rgba(255,255,255,.04)}
+.pvc td{padding:18px 28px;text-align:center;font-weight:800;font-size:1.6rem;border-bottom:1px solid var(--card-border);min-width:80px}
+.pvc td.dp{padding:18px 6px;font-size:2rem;color:var(--text-dim)}
+.pvc tr:last-child td{border-bottom:none}
+
+/* PLACE VALUE COUNTERS */
+.pvc-counter{display:inline-block;width:34px;height:34px;border-radius:50%;line-height:30px;font-size:.78rem;font-weight:800;border:2px solid currentColor;margin:2px;background:rgba(255,255,255,.05)}
+.pvc-counter.one{color:var(--accent-light)}
+.pvc-counter.tenth{color:#93C5FD}
+.pvc-counter.hundredth{color:#6EE7B7}
+.pvc-counter.ten{color:#FBBF24}
+
+/* HUNDRED GRID */
+.hundred-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;max-width:340px;margin:18px auto;padding:6px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid var(--card-border)}
+.hundred-grid .cell{aspect-ratio:1;background:rgba(255,255,255,.03);border-radius:3px;cursor:pointer;transition:all .15s}
+.hundred-grid .cell:hover{background:rgba(139,92,246,.25)}
+.hundred-grid .cell.shaded{background:var(--hundredth-color)}
+.hundred-grid .cell.shaded-tenth{background:var(--tenth-color)}
+
+/* TEN-FRAME / TEN-STRIP */
+.ten-strip{display:grid;grid-template-columns:repeat(10,1fr);gap:0;max-width:480px;margin:14px auto;border-radius:10px;overflow:hidden;border:2px solid var(--card-border);height:54px}
+.ten-strip .cell{background:rgba(255,255,255,.03);border-right:1px solid var(--card-border);transition:background .25s}
+.ten-strip .cell:last-child{border-right:none}
+.ten-strip .cell.shaded{background:var(--tenth-color)}
+
+/* GATTEGNO CHART */
+.gattegno{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;max-width:620px;margin:14px auto;padding:8px;border-radius:14px;background:rgba(255,255,255,.04);border:2px solid var(--card-border)}
+.gattegno .gcell{padding:10px 4px;text-align:center;font-weight:800;font-size:1rem;border-radius:8px;background:rgba(255,255,255,.04);transition:all .25s;cursor:default}
+.gattegno .grow-tens .gcell{color:#FBBF24}
+.gattegno .grow-ones .gcell{color:var(--accent-light)}
+.gattegno .grow-tenths .gcell{color:#93C5FD}
+.gattegno .grow-hundredths .gcell{color:#6EE7B7}
+.gattegno .gcell.lit{background:var(--accent);color:#fff!important;transform:scale(1.05);box-shadow:0 6px 18px rgba(139,92,246,.35)}
+.gattegno .glabel{font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);align-self:center}
+
+/* SENTENCE STEM */
+.sentence-stem{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:14px;padding:16px 24px;font-size:1.1rem;text-align:center;margin-top:16px;line-height:1.7;color:var(--accent-light);font-weight:500}
+.hl-tenth{color:var(--tenth-color);font-weight:700}
+.hl-hundredth{color:var(--hundredth-color);font-weight:700}
+.hl-divide{color:var(--divide-color);font-weight:700}
+.hl-round{color:var(--round-color);font-weight:700}
+
+/* BUTTONS */
+.action-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;border:2px solid transparent;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;color:#fff}
+.action-btn:hover{transform:scale(1.05)}
+.action-btn.check-btn{background:var(--success)}
+.action-btn.warn{background:var(--divide-color)}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+
+/* INPUT */
+.num-input{width:120px;font-size:1.3rem;padding:10px;border-radius:10px;border:2px solid var(--card-border);background:rgba(255,255,255,.06);color:var(--text);text-align:center;font-family:inherit;font-weight:700}
+
+/* QUIZ */
+.quiz-question{background:rgba(255,255,255,.04);border:1px solid var(--card-border);border-radius:16px;padding:24px;margin-bottom:16px}
+.quiz-question .q-text{font-size:1.1rem;font-weight:600;margin-bottom:16px;line-height:1.6}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{padding:14px 20px;border-radius:12px;cursor:pointer;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);font-size:1rem;transition:all .2s;text-align:left;font-family:inherit;color:var(--text);font-weight:500}
+.quiz-opt:hover{border-color:var(--accent);background:rgba(139,92,246,.1)}
+.quiz-opt.correct{border-color:var(--success);background:rgba(16,185,129,.15);color:var(--success)}
+.quiz-opt.wrong{border-color:var(--error);background:rgba(239,68,68,.1);color:var(--error)}
+.quiz-opt.disabled{pointer-events:none}
+.quiz-feedback{margin-top:12px;padding:12px 18px;border-radius:10px;font-size:.95rem;font-weight:500;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct-fb{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);color:var(--success)}
+.quiz-feedback.wrong-fb{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--error)}
+
+/* HOMEWORK */
+.homework-card{background:linear-gradient(135deg,rgba(59,130,246,.05),rgba(139,92,246,.08));border:2px dashed rgba(139,92,246,.3);border-radius:20px;padding:32px;max-width:760px;width:100%}
+.homework-card h3{color:var(--accent-light);margin-bottom:16px}
+.homework-item{padding:8px 0;font-size:1.05rem;color:var(--text);display:flex;gap:10px;line-height:1.6}
+.tier-header{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:100px;margin:14px 0 4px}
+.tier-mild{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.3)}
+.tier-medium{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.3)}
+.tier-spicy{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.3)}
+.answer-key{margin-top:20px;border-top:1px dashed rgba(255,255,255,.12);padding-top:16px}
+.answer-key summary{cursor:pointer;color:var(--divide-color);font-weight:700;padding:10px 14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;list-style:none;font-size:.95rem}
+.answer-key summary::-webkit-details-marker{display:none}
+.answer-key summary::before{content:'🔑 ';margin-right:4px}
+.answer-key[open] summary{margin-bottom:12px}
+.answer-key .ak-item{padding:6px 0;font-size:.95rem;color:var(--text-dim);line-height:1.6}
+.answer-key .ak-item strong{color:var(--text)}
+
+/* NUMBER LINE */
+.nl-container{width:100%;max-width:680px;margin:20px auto;position:relative;padding:0 20px}
+.nl-line{width:100%;height:6px;background:rgba(255,255,255,.18);border-radius:3px;position:relative;margin:50px 0 50px}
+.nl-tick{position:absolute;top:-8px;width:2px;height:22px;background:rgba(255,255,255,.4);border-radius:1px}
+.nl-tick.major{height:30px;top:-12px;width:3px;background:rgba(255,255,255,.7)}
+.nl-label{position:absolute;top:24px;font-size:.85rem;color:var(--text-dim);transform:translateX(-50%);font-weight:600}
+.nl-arrow{position:absolute;top:-32px;font-size:1.4rem;transform:translateX(-50%);color:var(--accent-light);font-weight:900}
+.nl-flag{position:absolute;top:-28px;font-size:.8rem;color:var(--accent-light);transform:translateX(-50%);font-weight:700;background:rgba(139,92,246,.18);padding:2px 8px;border-radius:6px;white-space:nowrap}
+
+/* RESULTS */
+.results-card{text-align:center;padding:40px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:24px;backdrop-filter:blur(20px);max-width:520px}
+.score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;font-weight:900;color:#fff}
+.score-circle.gold{background:linear-gradient(135deg,#F59E0B,#D97706);box-shadow:0 8px 30px rgba(245,158,11,.4)}
+.score-circle.silver{background:linear-gradient(135deg,#94A3B8,#64748B);box-shadow:0 8px 30px rgba(148,163,184,.3)}
+.score-circle.bronze{background:linear-gradient(135deg,#F97316,#C2410C);box-shadow:0 8px 30px rgba(249,115,22,.3)}
+
+/* MISC */
+.flex-center{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.mt-16{margin-top:16px}.mt-24{margin-top:24px}.mb-16{margin-bottom:16px}
+.text-center{text-align:center}
+.hidden{display:none!important}
+.big-number{font-size:4.4rem;font-weight:900;line-height:1;letter-spacing:-.02em}
+.slide-content{max-height:calc(100vh - 100px);overflow-y:auto;width:100%;max-width:920px;padding-bottom:20px}
+.slide-content::-webkit-scrollbar{width:6px}
+.slide-content::-webkit-scrollbar-track{background:transparent}
+.slide-content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+.click-shape{cursor:pointer;transition:all .2s}
+.click-shape:hover{filter:brightness(1.3)}
+
+/* FRACTION DISPLAY */
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;line-height:1}
+.frac .num{border-bottom:2px solid currentColor;padding:0 4px 2px;font-weight:700}
+.frac .den{padding:2px 4px 0;font-weight:700}
+
+/* DIGIT BLOCK (for ÷10/÷100 animation) */
+.digit-row{display:flex;align-items:center;justify-content:center;gap:6px;margin:14px 0;flex-wrap:wrap}
+.digit-block{min-width:54px;padding:14px 10px;text-align:center;border-radius:10px;background:rgba(139,92,246,.12);border:2px solid rgba(139,92,246,.35);font-weight:900;font-size:1.6rem;color:var(--accent-light);transition:all .35s}
+.digit-block.shifted{transform:translateX(0);background:rgba(59,130,246,.18);border-color:var(--tenth-color);color:#93C5FD}
+.digit-block.dp{padding:14px 4px;background:transparent;border:none;color:var(--text-dim);font-size:2rem}
+.digit-col-label{font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text-dim);text-align:center;margin-top:4px}
+
+/* TITLE SLIDE */
+.title-slide h1{font-size:3.5rem;font-weight:900;text-align:center;line-height:1.2;background:linear-gradient(135deg,var(--tenth-color),var(--accent),var(--divide-color));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.title-meta{color:var(--text-dim);font-size:1.1rem;margin-top:12px;text-align:center}
+
+@media(max-width:600px){
+  .slide{padding:16px 16px 90px}
+  .title-slide h1{font-size:2.2rem}
+  .slide-title{font-size:1.5rem}
+  .glass-card{padding:20px}
+  .pvc td{padding:12px 16px;font-size:1.3rem}
+  .pvc th{padding:10px 16px}
+  .gattegno{grid-template-columns:repeat(5,1fr)}
+  .digit-block{min-width:42px;font-size:1.3rem;padding:10px 6px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- ===== SLIDE 0: TITLE ===== -->
+<div class="slide active title-slide" id="slide-0">
+<div class="slide-content flex-center" style="flex-direction:column;min-height:80vh;">
+  <div style="margin-bottom:20px;">
+    <svg width="220" height="90" viewBox="0 0 220 90">
+      <rect x="5" y="5" width="100" height="80" rx="10" fill="rgba(59,130,246,0.15)" stroke="#3B82F6" stroke-width="2"/>
+      <line x1="35" y1="5" x2="35" y2="85" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3"/>
+      <line x1="65" y1="5" x2="65" y2="85" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3"/>
+      <line x1="95" y1="5" x2="95" y2="85" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="3"/>
+      <rect x="5" y="5" width="60" height="80" rx="10" fill="rgba(59,130,246,0.5)"/>
+      <text x="55" y="55" text-anchor="middle" fill="#fff" font-size="20" font-weight="900" font-family="Inter">0.6</text>
+      <rect x="125" y="5" width="80" height="80" rx="10" fill="rgba(16,185,129,0.18)" stroke="#10B981" stroke-width="2"/>
+      <text x="165" y="60" text-anchor="middle" fill="#6EE7B7" font-size="34" font-weight="900" font-family="Inter">·</text>
+      <text x="148" y="60" text-anchor="middle" fill="#6EE7B7" font-size="22" font-weight="900" font-family="Inter">0</text>
+      <text x="180" y="60" text-anchor="middle" fill="#6EE7B7" font-size="22" font-weight="900" font-family="Inter">7</text>
+    </svg>
+  </div>
+  <h1>Decimals</h1>
+  <p class="title-meta">Year 4 Mathematics — Spring Term, Block 4 (Weeks 1–4)</p>
+  <p class="title-meta" style="margin-top:8px;font-size:.95rem;">📐 Tenths · Hundredths · Comparing · Dividing · Rounding</p>
+  <p class="title-meta" style="margin-top:4px;font-size:.85rem;color:var(--accent-light);">Built for Boluwatife • Use ← → arrow keys to navigate</p>
+</div>
+</div>
+
+<!-- ===== SLIDE 1: WEEK 1 HOOK — IS THIS A FRACTION OR A DECIMAL? ===== -->
+<div class="slide" id="slide-1">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Week 1 · Tenths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🔍 Same Amount, Different Outfits</div>
+    <div class="slide-subtitle">A fraction and a decimal can mean <strong>the same thing</strong>.<br>Click each card below — which two show the <em>same</em> amount?</div>
+    <div class="shape-row">
+      <div class="shape-box click-shape" onclick="hookPick(this,'a')">
+        <svg width="180" height="60" viewBox="0 0 180 60">
+          <rect x="2" y="2" width="176" height="56" rx="8" fill="rgba(59,130,246,0.1)" stroke="#3B82F6" stroke-width="2"/>
+          <rect x="2" y="2" width="123" height="56" fill="rgba(59,130,246,0.55)"/>
+          <line x1="19.6" y1="2" x2="19.6" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="37.2" y1="2" x2="37.2" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="54.8" y1="2" x2="54.8" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="72.4" y1="2" x2="72.4" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="90" y1="2" x2="90" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="107.6" y1="2" x2="107.6" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="125.2" y1="2" x2="125.2" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="142.8" y1="2" x2="142.8" y2="58" stroke="#3B82F6" stroke-width="1"/>
+          <line x1="160.4" y1="2" x2="160.4" y2="58" stroke="#3B82F6" stroke-width="1"/>
+        </svg>
+        <div class="label">Card A — bar split in 10ths, 7 shaded</div>
+      </div>
+      <div class="shape-box click-shape" onclick="hookPick(this,'b')">
+        <div style="font-size:3rem;font-weight:900;color:var(--hundredth-color);padding:16px 24px;background:rgba(16,185,129,0.1);border:2px solid rgba(16,185,129,0.4);border-radius:12px;display:inline-block;">0.7</div>
+        <div class="label">Card B — the decimal 0.7</div>
+      </div>
+      <div class="shape-box click-shape" onclick="hookPick(this,'c')">
+        <div style="font-size:2.2rem;font-weight:900;color:var(--accent-light);padding:24px;background:rgba(139,92,246,0.1);border:2px solid rgba(139,92,246,0.4);border-radius:12px;display:inline-block;"><span class="frac"><span class="num">7</span><span class="den">100</span></span></div>
+        <div class="label">Card C — the fraction 7/100</div>
+      </div>
+    </div>
+    <div id="hookPicks" style="margin-top:14px;color:var(--text-dim);font-size:.95rem;">Pick two cards that match.</div>
+    <div id="hookFb" class="quiz-feedback mt-16"></div>
+    <div class="sentence-stem mt-16" id="hookStem" style="opacity:0;transition:opacity .4s;">
+      A and B both show <strong class="hl-tenth">7 tenths</strong>. <span class="frac"><span class="num">7</span><span class="den">10</span></span> = <strong class="hl-tenth">0.7</strong>. Card C is something else — <strong>seven hundredths</strong> = 0.07.
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 2: TENTHS AS FRACTIONS ===== -->
+<div class="slide" id="slide-2">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Week 1 · Tenths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🍫 Tenths as Fractions</div>
+    <div class="slide-subtitle">When we split <strong>1 whole</strong> into <strong>10 equal parts</strong>, each part is <strong class="hl-tenth">one tenth</strong> = <span class="frac"><span class="num">1</span><span class="den">10</span></span>. <br>Click the bar to add tenths.</div>
+    <div class="ten-strip" id="tenthsStrip">
+      <div class="cell" data-i="0" onclick="toggleTenth(0)"></div>
+      <div class="cell" data-i="1" onclick="toggleTenth(1)"></div>
+      <div class="cell" data-i="2" onclick="toggleTenth(2)"></div>
+      <div class="cell" data-i="3" onclick="toggleTenth(3)"></div>
+      <div class="cell" data-i="4" onclick="toggleTenth(4)"></div>
+      <div class="cell" data-i="5" onclick="toggleTenth(5)"></div>
+      <div class="cell" data-i="6" onclick="toggleTenth(6)"></div>
+      <div class="cell" data-i="7" onclick="toggleTenth(7)"></div>
+      <div class="cell" data-i="8" onclick="toggleTenth(8)"></div>
+      <div class="cell" data-i="9" onclick="toggleTenth(9)"></div>
+    </div>
+    <div class="sentence-stem">
+      The bar shows <strong id="tenthShaded" class="hl-tenth">0</strong> tenths shaded out of 10 → <span class="frac" style="color:var(--tenth-color);"><span class="num" id="tenthNum">0</span><span class="den">10</span></span> = <strong class="hl-tenth" id="tenthDec">0.0</strong>
+    </div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="setTenths(3)">Show 3/10</button>
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="setTenths(7)">Show 7/10</button>
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="setTenths(10)">Show 10/10 (1 whole)</button>
+      <button class="action-btn warn" onclick="setTenths(0)">↻ Reset</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 3: TENTHS ON THE PLACE VALUE CHART ===== -->
+<div class="slide" id="slide-3">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Week 1 · Tenths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🪜 Tenths on the Place Value Chart</div>
+    <div class="slide-subtitle">A <strong>decimal point</strong> separates ones from tenths. The first column <em>after</em> the dot is <strong class="hl-tenth">tenths</strong>. One number per column — the "<strong>one number per room</strong>" rule.</div>
+    <table class="pvc">
+      <tr>
+        <th>Ones</th>
+        <th class="dp"></th>
+        <th class="col-tenth">Tenths</th>
+      </tr>
+      <tr>
+        <td><span class="pvc-counter one">1</span></td>
+        <td class="dp">·</td>
+        <td><span class="pvc-counter tenth">0.1</span><span class="pvc-counter tenth">0.1</span><span class="pvc-counter tenth">0.1</span></td>
+      </tr>
+    </table>
+    <div class="sentence-stem">
+      There is <strong>1</strong> one and <strong class="hl-tenth">3</strong> tenths. The number is <strong>1.3</strong>.
+    </div>
+    <div class="mt-24" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--divide-color);">⚠️ Watch out — Tiny's mistake:</strong>
+      <p style="margin-top:8px;line-height:1.6;color:var(--text-dim);">Tiny is counting in 0.1s and writes:<br><em>"0.7, 0.8, 0.9, <strong style="color:var(--error);">0.10</strong>, 0.11..."</em><br>That's wrong! After <strong>9 tenths</strong> we have <strong>10 tenths = 1 whole</strong>. So the next number is <strong style="color:var(--success);">1.0</strong>, not "0.10".</p>
+    </div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="newTenthCount()">🎯 Try a quick count</button>
+    </div>
+    <div id="tenthCountArea" class="mt-16"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 4: TENTHS ON A NUMBER LINE ===== -->
+<div class="slide" id="slide-4">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Week 1 · Tenths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">📏 Tenths on a Number Line</div>
+    <div class="slide-subtitle">Between each whole number there are <strong>10 equal tenths</strong>. The arrow shows a number — type what it is.</div>
+    <div id="tenthsNL"></div>
+    <div class="flex-center mt-16">
+      <input type="number" step="0.1" id="nlAnswer" class="num-input" placeholder="0.0">
+      <button class="action-btn check-btn" onclick="checkNL()">✓ Check</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="newNL()">↻ New arrow</button>
+    </div>
+    <div id="nlFb" class="quiz-feedback"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 5: MINI TEST 1 — TENTHS ===== -->
+<div class="slide" id="slide-5">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Week 1 · Mini Test</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📝 Mini Test 1 — Tenths</div>
+    <div class="slide-subtitle text-center">7 questions on tenths as fractions, decimals, place value, and number lines.</div>
+    <div id="miniTest1"></div>
+    <div class="results-card hidden" id="mt1Result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 6: HUNDREDTHS AS FRACTIONS (100-grid) ===== -->
+<div class="slide" id="slide-6">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Week 2 · Hundredths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🟩 Hundredths — Splitting the Whole into 100</div>
+    <div class="slide-subtitle">Now we split <strong>1 whole</strong> into <strong>100 equal squares</strong>. Each square is <strong class="hl-hundredth">one hundredth</strong> = <span class="frac"><span class="num">1</span><span class="den">100</span></span> = <strong class="hl-hundredth">0.01</strong>.<br>Click squares to shade them.</div>
+    <div class="hundred-grid" id="hundredGrid"></div>
+    <div class="sentence-stem">
+      <strong id="hgCount" class="hl-hundredth">0</strong> hundredths shaded → <span class="frac" style="color:var(--hundredth-color);"><span class="num" id="hgNum">0</span><span class="den">100</span></span> = <strong class="hl-hundredth" id="hgDec">0.00</strong>
+    </div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--hundredth-color);" onclick="shadeRows(3)">Shade 3 rows (= 30/100 = 3/10)</button>
+      <button class="action-btn" style="background:var(--hundredth-color);" onclick="shade100(45)">Shade 45/100</button>
+      <button class="action-btn warn" onclick="shade100(0)">↻ Reset</button>
+    </div>
+    <div class="mt-24" style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--hundredth-color);">🔁 Equivalence trick:</strong>
+      <p style="margin-top:6px;color:var(--text-dim);line-height:1.6;">A whole <em>row</em> = 10 squares = <span class="frac"><span class="num">10</span><span class="den">100</span></span> = <span class="frac"><span class="num">1</span><span class="den">10</span></span>. So <strong>3/10 = 30/100</strong> — same shading, different name.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 7: HUNDREDTHS ON THE PLACE VALUE CHART ===== -->
+<div class="slide" id="slide-7">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Week 2 · Hundredths</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🪜 Hundredths on the Place Value Chart</div>
+    <div class="slide-subtitle">The <strong>second</strong> column after the decimal point is <strong class="hl-hundredth">hundredths</strong>.<br>Watch the placeholder zero — <strong>3/100 = 0.03</strong>, NOT 0.3!</div>
+    <table class="pvc">
+      <tr>
+        <th>Ones</th>
+        <th class="dp"></th>
+        <th class="col-tenth">Tenths</th>
+        <th class="col-hundredth">Hundredths</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td class="dp">·</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+    </table>
+    <div class="sentence-stem">
+      <strong>0</strong> ones, <strong class="hl-tenth">2</strong> tenths, <strong class="hl-hundredth">3</strong> hundredths → <strong>0.23</strong>
+    </div>
+    <div class="mt-24" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--error);">🚨 The "Placeholder Zero" trap:</strong>
+      <p style="margin-top:8px;color:var(--text-dim);line-height:1.7;">
+      <span class="frac"><span class="num">3</span><span class="den">100</span></span> means <strong>0 tenths and 3 hundredths</strong>. So we MUST write a 0 in the tenths column.<br>
+      ✅ <strong style="color:var(--success);">3/100 = 0.03</strong><br>
+      ❌ <strong style="color:var(--error);">3/100 ≠ 0.3</strong> &nbsp;(0.3 is three <em>tenths</em>, ten times bigger!)
+      </p>
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">🧩 Flexible Partitioning</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">There's more than one way to break up <strong>0.34</strong>. Click each:</p>
+    <div id="flexPartArea" class="mt-16"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 8: COMPARING DECIMALS — THE BIG NUMBER ILLUSION ===== -->
+<div class="slide" id="slide-8">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Week 2 · Comparing</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">⚖️ Comparing Decimals — The Big Number Illusion</div>
+    <div class="slide-subtitle">Dora says: <em>"0.09 is bigger than 0.1 because 9 is bigger than 1."</em><br>Is she right?</div>
+    <div class="shape-row">
+      <div class="shape-box">
+        <div class="hundred-grid" id="cmpGridA" style="max-width:220px;"></div>
+        <div class="label" style="color:var(--tenth-color);font-weight:700;">0.1 = 10/100</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:2.4rem;font-weight:900;color:var(--accent);">vs</div>
+      <div class="shape-box">
+        <div class="hundred-grid" id="cmpGridB" style="max-width:220px;"></div>
+        <div class="label" style="color:var(--hundredth-color);font-weight:700;">0.09 = 9/100</div>
+      </div>
+    </div>
+    <div class="sentence-stem">
+      <strong>0.1 = 10 hundredths</strong>. <strong>0.09 = 9 hundredths</strong>. So <strong style="color:var(--success);">0.1 &gt; 0.09</strong>.
+    </div>
+    <div class="mt-24" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.25);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--accent-light);">🧠 The Invisible Zero trick:</strong>
+      <p style="margin-top:6px;color:var(--text-dim);line-height:1.7;">When comparing <strong>0.1</strong> and <strong>0.09</strong>, write 0.1 as <strong>0.10</strong> (tens of hundredths). Now they have the same number of decimal places: <strong>0.10 vs 0.09</strong>. Easy — 10 &gt; 9.</p>
+    </div>
+    <div id="cmpQuizArea" class="mt-24"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 9: MINI TEST 2 — HUNDREDTHS ===== -->
+<div class="slide" id="slide-9">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Week 2 · Mini Test</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📝 Mini Test 2 — Hundredths & Comparing</div>
+    <div class="slide-subtitle text-center">7 questions on hundredths, place value, the placeholder zero, and the Big Number Illusion.</div>
+    <div id="miniTest2"></div>
+    <div class="results-card hidden" id="mt2Result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 10: DIVIDING BY 10 ===== -->
+<div class="slide" id="slide-10">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w3"></span> Week 3 · Division</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">➗ Dividing by 10 — The Digit Shift</div>
+    <div class="slide-subtitle">When you divide by 10, every digit moves <strong>one column to the right</strong>. The digits are "glued together" — they all move at once.</div>
+    <table class="pvc" id="div10Chart">
+      <tr>
+        <th class="col-tens">Tens</th>
+        <th>Ones</th>
+        <th class="dp"></th>
+        <th class="col-tenth">Tenths</th>
+        <th class="col-hundredth">Hundredths</th>
+      </tr>
+      <tr id="div10Row1">
+        <td id="d10-tens">3</td>
+        <td id="d10-ones">4</td>
+        <td class="dp">·</td>
+        <td id="d10-tenths"></td>
+        <td id="d10-hundredths"></td>
+      </tr>
+    </table>
+    <div class="big-number" id="div10Display" style="margin:14px 0;color:var(--accent-light);">34</div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--divide-color);" onclick="animateDiv10()">▶️ Divide by 10</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="resetDiv10(34)">↻ Reset to 34</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="resetDiv10(60)">Try 60</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="resetDiv10(7)">Try 7</button>
+    </div>
+    <div class="sentence-stem mt-16" id="div10Stem">
+      Click "Divide by 10" to watch the digits shift right.
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">🎯 Quick practice</h3>
+    <div id="div10Practice"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 11: GATTEGNO + DIVIDING BY 100 ===== -->
+<div class="slide" id="slide-11">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w3"></span> Week 3 · Division</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🎯 Dividing by 100 — Two Shifts</div>
+    <div class="slide-subtitle">Dividing by 100 is the same as dividing by 10 <strong>twice</strong>. So digits move <strong>two columns to the right</strong>.</div>
+    <div class="gattegno">
+      <div class="glabel">Tens</div>
+      <div class="grow-tens" style="display:contents;">
+        <div class="gcell" data-val="10">10</div>
+        <div class="gcell" data-val="20">20</div>
+        <div class="gcell" data-val="30">30</div>
+        <div class="gcell" data-val="40">40</div>
+        <div class="gcell" data-val="50">50</div>
+        <div class="gcell" data-val="60">60</div>
+        <div class="gcell" data-val="70">70</div>
+        <div class="gcell" data-val="80">80</div>
+      </div>
+      <div class="glabel">Ones</div>
+      <div class="grow-ones" style="display:contents;">
+        <div class="gcell" data-val="1">1</div>
+        <div class="gcell" data-val="2">2</div>
+        <div class="gcell" data-val="3">3</div>
+        <div class="gcell" data-val="4">4</div>
+        <div class="gcell" data-val="5">5</div>
+        <div class="gcell" data-val="6">6</div>
+        <div class="gcell" data-val="7">7</div>
+        <div class="gcell" data-val="8">8</div>
+      </div>
+      <div class="glabel">Tenths</div>
+      <div class="grow-tenths" style="display:contents;">
+        <div class="gcell" data-val="0.1">0.1</div>
+        <div class="gcell" data-val="0.2">0.2</div>
+        <div class="gcell" data-val="0.3">0.3</div>
+        <div class="gcell" data-val="0.4">0.4</div>
+        <div class="gcell" data-val="0.5">0.5</div>
+        <div class="gcell" data-val="0.6">0.6</div>
+        <div class="gcell" data-val="0.7">0.7</div>
+        <div class="gcell" data-val="0.8">0.8</div>
+      </div>
+      <div class="glabel">Hundredths</div>
+      <div class="grow-hundredths" style="display:contents;">
+        <div class="gcell" data-val="0.01">0.01</div>
+        <div class="gcell" data-val="0.02">0.02</div>
+        <div class="gcell" data-val="0.03">0.03</div>
+        <div class="gcell" data-val="0.04">0.04</div>
+        <div class="gcell" data-val="0.05">0.05</div>
+        <div class="gcell" data-val="0.06">0.06</div>
+        <div class="gcell" data-val="0.07">0.07</div>
+        <div class="gcell" data-val="0.08">0.08</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--divide-color);" onclick="gattegno(45,2)">▶️ 45 ÷ 100</button>
+      <button class="action-btn" style="background:var(--divide-color);" onclick="gattegno(7,1)">▶️ 7 ÷ 10</button>
+      <button class="action-btn" style="background:var(--divide-color);" onclick="gattegno(82,2)">▶️ 82 ÷ 100</button>
+      <button class="action-btn warn" onclick="gattegnoReset()">↻ Clear</button>
+    </div>
+    <div class="sentence-stem" id="gattegnoStem">
+      Press a button to see the digits jump down the rows.
+    </div>
+    <div class="mt-24" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--divide-color);">🚨 Tiny says:</strong> <em>"45 ÷ 100 = 40.05 because the 5 moves but the 4 stays."</em>
+      <p style="margin-top:6px;color:var(--text-dim);line-height:1.7;">No! The digits are <strong>glued together</strong> — they ALL move two places. <strong>45 ÷ 100 = 0.45</strong>.</p>
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">🎯 Quick practice</h3>
+    <div id="div100Practice"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 12: MINI TEST 3 — DIVISION ===== -->
+<div class="slide" id="slide-12">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w3"></span> Week 3 · Mini Test</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📝 Mini Test 3 — Dividing by 10 & 100</div>
+    <div class="slide-subtitle text-center">7 questions including ÷10, ÷100, inverse problems, and "Do you agree?"</div>
+    <div id="miniTest3"></div>
+    <div class="results-card hidden" id="mt3Result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 13: ROUNDING TO THE NEAREST WHOLE — HIGH FIVE RULE ===== -->
+<div class="slide" id="slide-13">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Week 4 · Rounding</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🎯 Rounding to the Nearest Whole</div>
+    <div class="slide-subtitle">Look at the <strong>tenths digit</strong>:<br>• 0–4 → round <strong style="color:var(--tenth-color);">DOWN</strong> (stay)<br>• 5–9 → round <strong style="color:var(--divide-color);">UP</strong> (jump up)<br>This is the <strong>"High Five Rule"</strong> — 5 always jumps up. ✋</div>
+    <div id="roundNL"></div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--round-color);" onclick="newRound()">↻ New number</button>
+    </div>
+    <div class="flex-center mt-16">
+      <span style="color:var(--text-dim);">Round to the nearest whole:</span>
+      <input type="number" id="roundAns" class="num-input" placeholder="?">
+      <button class="action-btn check-btn" onclick="checkRound()">✓ Check</button>
+    </div>
+    <div id="roundFb" class="quiz-feedback"></div>
+    <div class="mt-24" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.3);border-radius:14px;padding:16px;text-align:left;">
+      <strong style="color:var(--round-color);">⚠️ Tricky case:</strong> <strong>0.4</strong> rounds to <strong>0</strong> (not to nothing — 0 IS the nearest whole). And <strong>3.5</strong> rounds to <strong>4</strong> (the High Five Rule).
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 14: DECIMAL OF A QUANTITY (HOUSING ESTATE) ===== -->
+<div class="slide" id="slide-14">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Week 4 · Application</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🏘️ Decimal of a Quantity — Housing Estate</div>
+    <div class="slide-subtitle">There are <strong>100 houses</strong> on a new estate.<br>To find a <strong>decimal of a quantity</strong>: turn the decimal into a fraction over 100, then count the squares.</div>
+    <div class="hundred-grid" id="houseGrid" style="max-width:380px;"></div>
+    <div class="sentence-stem" id="houseStem">
+      <strong>0.24</strong> of <strong>100 houses</strong> have 3 bedrooms = <strong class="hl-hundredth">24</strong> houses
+    </div>
+    <div class="btn-row">
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="houseScene('3bed')">0.24 = 3 bed</button>
+      <button class="action-btn" style="background:var(--hundredth-color);" onclick="houseScene('5bed')">0.11 = 5 bed</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="houseScene('garden')">0.98 = garden</button>
+      <button class="action-btn" style="background:var(--round-color);" onclick="houseScene('garage')">½ = garage</button>
+      <button class="action-btn warn" onclick="houseScene('reset')">↻ Reset</button>
+    </div>
+    <div class="mt-24" style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--hundredth-color);">📐 The formula (works for any whole):</strong>
+      <p style="margin-top:8px;color:var(--text-dim);line-height:1.7;">
+      Decimal of a quantity = <strong>(decimal as a fraction) ÷ denominator × numerator × quantity</strong><br>
+      Easier: 0.24 = <span class="frac"><span class="num">24</span><span class="den">100</span></span>. So 0.24 of 100 = 100 ÷ 100 × 24 = <strong>24</strong>. ✅
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 15: MINI TEST 4 — APPLICATION ===== -->
+<div class="slide" id="slide-15">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Week 4 · Mini Test</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📝 Mini Test 4 — Rounding & Word Problems</div>
+    <div class="slide-subtitle text-center">7 questions on rounding to the nearest whole and decimal-of-a-quantity word problems.</div>
+    <div id="miniTest4"></div>
+    <div class="results-card hidden" id="mt4Result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.1: KEY EQUIVALENTS (¼, ½, ¾) ===== -->
+<div class="slide" id="slide-v2-quarters">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Volume 2 · Key Equivalents</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🍕 ¼, ½ and ¾ as Decimals — MUST-KNOW</div>
+    <div class="slide-subtitle">Three fractions appear in <strong>every</strong> Year 4 paper. You must know their decimals by heart.<br>Click each card to reveal.</div>
+    <div class="shape-row" id="keCardsRow"></div>
+    <div class="sentence-stem mt-16">
+      <strong>¼ = 0.25</strong> &nbsp;·&nbsp; <strong>½ = 0.5</strong> (or 0.50) &nbsp;·&nbsp; <strong>¾ = 0.75</strong>
+    </div>
+    <div class="mt-24" style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--accent-light);">🔁 Why?</strong>
+      <p style="margin-top:8px;color:var(--text-dim);line-height:1.7;">
+      A whole = 100 hundredths. Split into 4 equal parts → each is 100 ÷ 4 = <strong>25</strong> hundredths = <strong>0.25</strong>.<br>
+      So ¼ = 25/100 = 0.25 → ½ = 50/100 = 0.50 → ¾ = 75/100 = 0.75.
+      </p>
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">🎯 Match the pairs</h3>
+    <div id="keMatchArea"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.2: MIXED NUMBERS ===== -->
+<div class="slide" id="slide-v2-mixed">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Volume 2 · Mixed Numbers</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🧮 Whole Number + Fraction = Mixed Decimal</div>
+    <div class="slide-subtitle">A whole number with a fraction can also be written as a decimal. The whole goes <strong>before</strong> the dot; the fraction goes <strong>after</strong>.</div>
+    <table class="pvc">
+      <tr>
+        <th class="col-tens">Tens</th>
+        <th>Ones</th>
+        <th class="dp"></th>
+        <th class="col-tenth">Tenths</th>
+        <th class="col-hundredth">Hundredths</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>6</td>
+        <td class="dp">·</td>
+        <td>0</td>
+        <td>9</td>
+      </tr>
+    </table>
+    <div class="sentence-stem">
+      <strong>16 + <span class="frac"><span class="num">9</span><span class="den">100</span></span> = 16.09</strong> (9 hundredths needs the <strong style="color:var(--error);">placeholder zero</strong>!)
+    </div>
+    <div class="mt-24" style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--error);">🚨 The 9/10 vs 9/100 Trap:</strong>
+      <p style="margin-top:8px;color:var(--text-dim);line-height:1.7;">
+      • 16 <span class="frac"><span class="num">9</span><span class="den">10</span></span> = <strong>16.9</strong> (9 tenths)<br>
+      • 16 <span class="frac"><span class="num">9</span><span class="den">100</span></span> = <strong>16.09</strong> (9 hundredths)<br>
+      Different! 16.9 = 16.90 = ten times bigger than 16.09.
+      </p>
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">🎯 Convert these</h3>
+    <div id="mixedPracticeArea"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.3: TENTHS ↔ HUNDREDTHS FLUENCY ===== -->
+<div class="slide" id="slide-v2-equiv">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> Volume 2 · Equivalence</div>
+  <div class="glass-card text-center">
+    <div class="slide-title">🔄 Tenths ↔ Hundredths Fluency</div>
+    <div class="slide-subtitle">One whole row of a 100-grid = 1 tenth. So <strong>1 tenth = 10 hundredths</strong>.<br>You should be able to flip between them in seconds.</div>
+    <div class="flex-center" style="gap:30px;">
+      <div>
+        <div class="hundred-grid" id="eq-grid-tenths" style="max-width:170px;"></div>
+        <div class="label" style="color:var(--tenth-color);font-weight:700;text-align:center;margin-top:6px;">3/10 = 0.3</div>
+      </div>
+      <div style="font-size:2.4rem;font-weight:900;color:var(--accent);">=</div>
+      <div>
+        <div class="hundred-grid" id="eq-grid-hundredths" style="max-width:170px;"></div>
+        <div class="label" style="color:var(--hundredth-color);font-weight:700;text-align:center;margin-top:6px;">30/100 = 0.30</div>
+      </div>
+    </div>
+    <h3 style="margin-top:24px;color:var(--accent-light);">⚡ Quick-fire fluency drill</h3>
+    <div id="equivDrillArea"></div>
+    <div class="mt-24" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.3);border-radius:14px;padding:18px;text-align:left;">
+      <strong style="color:var(--divide-color);">🧩 "Make a whole" puzzles:</strong>
+      <p style="margin-top:8px;color:var(--text-dim);line-height:1.7;">
+      To make 1 whole, parts must total 100 hundredths.<br>
+      Example: 2/10 + ?/100 = 1 → 2/10 = 20/100, so we need <strong>80/100</strong> more.
+      </p>
+    </div>
+    <div id="makeWholeArea" class="mt-16"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.4: NUMBER LINE TRICKS ===== -->
+<div class="slide" id="slide-v2-nltricks">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w1"></span> Volume 2 · Number Line Tricks</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📏 Number Line Tricks Examiners Love</div>
+    <div class="slide-subtitle text-center">Four traps to spot: different scales, blank lines, non-unit step counts, and trailing zeros.</div>
+
+    <h3 style="color:var(--tenth-color);">⚠️ Trick 1 — Different scales</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">Two number lines look the same — but their scales are different. <strong>Read the labels first.</strong></p>
+    <div id="trick1NL"></div>
+    <div id="trick1Quiz"></div>
+
+    <h3 style="color:var(--divide-color);margin-top:24px;">🎯 Trick 2 — Estimation on a blank line</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">Only the ends are labelled — you have to estimate where a number sits.</p>
+    <div id="estLine"></div>
+
+    <h3 style="color:var(--accent-light);margin-top:24px;">📐 Trick 3 — Non-unit step counts</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">Sometimes you count in 0.2s, 0.05s, or 0.3s — not just 0.1s.</p>
+    <div id="countSteps"></div>
+
+    <h3 style="color:var(--hundredth-color);margin-top:24px;">📚 Trick 4 — Trailing zeros: 0.7 vs 0.70</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">A square shows 7 columns out of 10 shaded. Aisha says it's <strong>0.7</strong>. Ben says it's <strong>0.70</strong>. Who is right?</p>
+    <div class="btn-row" style="justify-content:flex-start;margin-top:8px;">
+      <button class="action-btn" style="background:var(--tenth-color);" onclick="showTrailingZero('aisha')">Aisha (0.7)</button>
+      <button class="action-btn" style="background:var(--hundredth-color);" onclick="showTrailingZero('ben')">Ben (0.70)</button>
+      <button class="action-btn" style="background:var(--accent);" onclick="showTrailingZero('both')">Both</button>
+    </div>
+    <div id="trailingFb" class="quiz-feedback"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.5: MONEY & MEASUREMENT ===== -->
+<div class="slide" id="slide-v2-money">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Volume 2 · Money & Measure</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">💷 Money & Measurement — Decimals in Real Life</div>
+    <div class="slide-subtitle text-center">Money and measurement are the <strong>most common</strong> exam contexts for decimals.</div>
+
+    <h3 style="color:var(--success);">💷 Money: £ and p</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">100p = £1. So <strong>1p = £0.01</strong> and <strong>10p = £0.10 = £0.1</strong>.</p>
+    <table class="pvc" style="margin-left:0;">
+      <tr>
+        <th>Pounds (Ones)</th>
+        <th class="dp"></th>
+        <th class="col-tenth">10p (Tenths)</th>
+        <th class="col-hundredth">1p (Hundredths)</th>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td class="dp">·</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+    </table>
+    <div class="sentence-stem">
+      £3.45 = 3 pounds + 4 ten-pences (40p) + 5 pennies = <strong>345p</strong> in total
+    </div>
+    <h3 style="margin-top:20px;color:var(--success);">💷 Money practice</h3>
+    <div id="moneyPracticeArea"></div>
+
+    <h3 style="margin-top:24px;color:var(--tenth-color);">📐 Measurement: m and cm</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">100cm = 1m. So <strong>1cm = 0.01m</strong>. (Just like pennies!)<br>To go cm → m: divide by 100. To go m → cm: multiply by 100.</p>
+    <div id="measurePracticeArea"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.6: REASONING GRID ===== -->
+<div class="slide" id="slide-v2-reasoning">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Volume 2 · Reasoning</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">🧠 Exam Reasoning Patterns</div>
+    <div class="slide-subtitle text-center">Four reasoning question types that appear in almost every paper.</div>
+
+    <h3 style="color:var(--round-color);">🔵 1. Always / Sometimes / Never True?</h3>
+    <div id="asnArea"></div>
+
+    <h3 style="color:var(--tenth-color);margin-top:24px;">🔢 2. Digit-card inequalities</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">Use the digits <strong>3, 5, 7, 9</strong> (each at most once) to make this true: <strong>0.4_ &lt; 0._5</strong></p>
+    <div id="digitCardArea"></div>
+
+    <h3 style="color:var(--hundredth-color);margin-top:24px;">🤔 3. Who's right? (and why)</h3>
+    <div id="whoRightArea"></div>
+
+    <h3 style="color:var(--divide-color);margin-top:24px;">🔍 4. Pattern Spotting</h3>
+    <p style="color:var(--text-dim);line-height:1.6;">Find the missing number in each line. Notice the pattern!</p>
+    <div id="patternArea"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== VOLUME 2 — SLIDE V2.7: MINI TEST 5 ===== -->
+<div class="slide" id="slide-v2-mt5">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Volume 2 · Mini Test</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">📝 Mini Test 5 — Volume 2 Mastery</div>
+    <div class="slide-subtitle text-center">9 questions on ¼/½/¾, mixed numbers, money, measurement, equivalence, and reasoning.</div>
+    <div id="miniTest5"></div>
+    <div class="results-card hidden" id="mt5Result"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 16: TIERED HOMEWORK CARD (MILD / MEDIUM / SPICY) ===== -->
+<div class="slide" id="slide-16">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w2"></span> This Week's Homework</div>
+  <div class="homework-card">
+    <h3 style="text-align:center;">📚 This Week's Homework — Hundredths, Comparing & Dividing</h3>
+    <p style="color:var(--text-dim);text-align:center;margin-bottom:12px;font-size:.95rem;">Pick the level you feel ready for. Try Mild first if you're not sure — then move up. Click 🔑 at the bottom to reveal the answers when you're done.</p>
+
+    <span class="tier-header tier-mild">🌱 MILD — Confidence builders</span>
+    <div class="homework-item"><strong>1.</strong> Write each as a decimal: a) 4/10 &nbsp; b) 9/100 &nbsp; c) 37/100 &nbsp; d) 70/100 &nbsp; e) 5/100</div>
+    <div class="homework-item"><strong>2.</strong> Look at <strong>2.15</strong>. Fill in: ___ ones, ___ tenths, ___ hundredths.</div>
+    <div class="homework-item"><strong>3.</strong> Work out: a) 6 ÷ 10 &nbsp; b) 9 ÷ 10 &nbsp; c) 30 ÷ 10 &nbsp; d) 4 ÷ 100 &nbsp; e) 80 ÷ 100</div>
+
+    <span class="tier-header tier-medium">🔥 MEDIUM — Stretch your thinking</span>
+    <div class="homework-item"><strong>4.</strong> Write &lt;, &gt; or =: a) 0.4 ○ 0.05 &nbsp; b) 3/10 ○ 0.31 &nbsp; c) "eleven hundredths" ○ 0.11 &nbsp; d) 0.01 ○ 1/100</div>
+    <div class="homework-item"><strong>5.</strong> Partition <strong>0.34</strong> in <strong>two different ways</strong> using tenths and hundredths.</div>
+    <div class="homework-item"><strong>6.</strong> Work out: a) 47 ÷ 10 &nbsp; b) 23 ÷ 100 &nbsp; c) 5 ÷ 100 &nbsp; d) 90 ÷ 10 &nbsp; e) 8 ÷ 100</div>
+    <div class="homework-item"><strong>7.</strong> Inverse: My answer is <strong>4.7</strong>. What number did I divide by 10?</div>
+
+    <span class="tier-header tier-spicy">🌶️ SPICY — Reasoning & word problems</span>
+    <div class="homework-item"><strong>8.</strong> Dora says <em>"0.09 is greater than 0.1 because 9 is greater than 1."</em> Do you agree? Explain using place value.</div>
+    <div class="homework-item"><strong>9.</strong> True or false: When you divide any 2-digit whole number by 100, the answer always has 0 in the ones column. Explain.</div>
+    <div class="homework-item"><strong>10.</strong> Housing estate (100 houses):
+      <ul style="margin:6px 0 0 28px;color:var(--text-dim);line-height:1.7;">
+        <li>0.24 will have 3 bedrooms</li>
+        <li>0.11 will have 5 bedrooms</li>
+        <li>The rest will have 4 bedrooms</li>
+        <li>1/2 will have a garage; 0.98 will have a garden</li>
+      </ul>
+      a) How many will have a garden? &nbsp; b) How many will have a garage? &nbsp; c) How many will have 4 bedrooms? &nbsp; d) What proportion will <strong>not</strong> have a garden?
+    </div>
+
+    <details class="answer-key">
+      <summary>Show answer key (try the questions first!)</summary>
+      <div class="ak-item"><strong>1.</strong> a) 0.4 &nbsp; b) 0.09 &nbsp; c) 0.37 &nbsp; d) 0.7 (or 0.70) &nbsp; e) 0.05</div>
+      <div class="ak-item"><strong>2.</strong> 2 ones, 1 tenth, 5 hundredths</div>
+      <div class="ak-item"><strong>3.</strong> a) 0.6 &nbsp; b) 0.9 &nbsp; c) 3 &nbsp; d) 0.04 &nbsp; e) 0.8</div>
+      <div class="ak-item"><strong>4.</strong> a) &gt; &nbsp; b) &lt; (3/10 = 0.30, less than 0.31) &nbsp; c) = &nbsp; d) =</div>
+      <div class="ak-item"><strong>5.</strong> 0.34 = 0.3 + 0.04 &nbsp;AND&nbsp; 0.34 = 0.2 + 0.14 (or 0.1 + 0.24)</div>
+      <div class="ak-item"><strong>6.</strong> a) 4.7 &nbsp; b) 0.23 &nbsp; c) 0.05 &nbsp; d) 9 &nbsp; e) 0.08</div>
+      <div class="ak-item"><strong>7.</strong> 47 (because 47 ÷ 10 = 4.7)</div>
+      <div class="ak-item"><strong>8.</strong> No. 0.1 = 0.10 = 10 hundredths. 0.09 = 9 hundredths. 10 &gt; 9, so <strong>0.1 &gt; 0.09</strong>. The tenths column is worth more than the hundredths column.</div>
+      <div class="ak-item"><strong>9.</strong> True. A 2-digit number ÷ 100 shifts both digits two places right, so the ones column becomes 0. Example: 45 ÷ 100 = 0.45.</div>
+      <div class="ak-item"><strong>10.</strong> a) 98 &nbsp; b) 50 &nbsp; c) 65 (since 0.24 + 0.11 = 0.35; 1 − 0.35 = 0.65) &nbsp; d) 0.02 (since 1 − 0.98 = 0.02)</div>
+    </details>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 17: FINAL ASSESSMENT ===== -->
+<div class="slide" id="slide-17">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;">
+  <div class="week-badge"><span class="dot w4"></span> Final Assessment</div>
+  <div class="glass-card">
+    <div class="slide-title text-center">🏆 End-of-Block Mastery Assessment</div>
+    <div class="slide-subtitle text-center">20 questions covering EVERY topic: tenths, hundredths, ¼/½/¾ equivalents, mixed numbers, comparing, dividing, rounding, money, measurement, and reasoning word problems.</div>
+    <div id="finalTest"></div>
+    <div class="results-card hidden" id="finalResult"></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== SLIDE 18: CERTIFICATE ===== -->
+<div class="slide" id="slide-18">
+<div class="slide-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;">
+  <div class="results-card">
+    <div style="font-size:4rem;">🏆</div>
+    <h2 style="font-size:1.8rem;margin-bottom:8px;" id="certTitle">Decimals Master!</h2>
+    <p style="color:var(--text-dim);margin-bottom:24px;" id="certSubtitle">Spring Block 4 — Year 4</p>
+    <div class="score-circle gold" id="certScore">—</div>
+    <p style="margin-top:20px;font-size:1.05rem;line-height:1.6;" id="certMessage">Complete the Final Assessment to see your score here.</p>
+    <p style="margin-top:18px;font-size:.85rem;color:var(--text-dim);">Boluwatife · Year 4 · 2026</p>
+  </div>
+</div>
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <button class="nav-btn back" onclick="prevSlide()" id="backBtn">← Back</button>
+  <div class="nav-center">
+    <span class="slide-counter" id="slideCounter">1 / 26</span>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle" title="Toggle light/dark mode">🌙 Dark</button>
+    <button class="reset-btn" onclick="resetProgress()" title="Restart from slide 1">🔄 Restart</button>
+    <button class="reset-btn" onclick="window.print()" title="Print this slide (great for homework)">🖨️ Print</button>
+  </div>
+  <button class="nav-btn" onclick="nextSlide()" id="nextBtn">Next →</button>
+</div>
+
+<!-- RESUME TOAST -->
+<div class="resume-toast" id="resumeToast">
+  <span class="resume-icon">👋</span>
+  <span class="resume-msg" id="resumeMsg">Welcome back — picking up where you left off.</span>
+  <button onclick="dismissResume()">Got it</button>
+  <button class="ghost" onclick="resetProgress()">Restart</button>
+</div>
+
+<script>
+// ============ SOUND ============
+const AudioCtx=window.AudioContext||window.webkitAudioContext;let audioCtx;
+function ensureAudio(){if(!audioCtx)audioCtx=new AudioCtx()}
+function playSound(t){try{ensureAudio();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);const now=audioCtx.currentTime;
+if(t==='correct'){o.frequency.setValueAtTime(523,now);o.frequency.setValueAtTime(659,now+.1);g.gain.setValueAtTime(.15,now);g.gain.exponentialRampToValueAtTime(.001,now+.4);o.start();o.stop(now+.4)}
+else if(t==='wrong'){o.type='sawtooth';o.frequency.setValueAtTime(200,now);g.gain.setValueAtTime(.1,now);g.gain.exponentialRampToValueAtTime(.001,now+.3);o.start();o.stop(now+.3)}
+else if(t==='success'){o.frequency.setValueAtTime(523,now);o.frequency.setValueAtTime(659,now+.15);o.frequency.setValueAtTime(784,now+.3);g.gain.setValueAtTime(.15,now);g.gain.exponentialRampToValueAtTime(.001,now+.6);o.start();o.stop(now+.6)}
+else if(t==='click'){o.frequency.setValueAtTime(800,now);g.gain.setValueAtTime(.08,now);g.gain.exponentialRampToValueAtTime(.001,now+.08);o.start();o.stop(now+.08)}
+}catch(e){}}
+
+// ============ STATE / THEME ============
+const STORAGE_KEY='y4_decimals_state';
+function loadState(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}}catch(e){return{}}}
+function saveState(patch){try{const s=loadState();localStorage.setItem(STORAGE_KEY,JSON.stringify({...s,...patch}))}catch(e){}}
+function applyTheme(mode){document.body.classList.toggle('light',mode==='light');const btn=document.getElementById('themeToggle');if(btn)btn.textContent=mode==='light'?'☀️ Light':'🌙 Dark'}
+function toggleTheme(){const next=document.body.classList.contains('light')?'dark':'light';applyTheme(next);saveState({theme:next});playSound('click')}
+function resetProgress(){try{const s=loadState();localStorage.setItem(STORAGE_KEY,JSON.stringify({theme:s.theme||'dark'}))}catch(e){}dismissResume();showSlide(0);playSound('click')}
+function dismissResume(){const t=document.getElementById('resumeToast');if(t)t.classList.remove('show')}
+function showResumeToast(slideNum,total){const t=document.getElementById('resumeToast');const msg=document.getElementById('resumeMsg');if(!t||!msg)return;msg.innerHTML='Welcome back — picking up at <strong>slide '+(slideNum+1)+' of '+total+'</strong>.';setTimeout(()=>t.classList.add('show'),400);setTimeout(()=>t.classList.remove('show'),7000)}
+function showKbdHint(){if(document.getElementById('kbdHint'))return;const h=document.createElement('div');h.id='kbdHint';h.className='kbd-hint';h.innerHTML='Tip: use <kbd>←</kbd> <kbd>→</kbd> arrow keys to move between slides';document.body.appendChild(h);setTimeout(()=>{const el=document.getElementById('kbdHint');if(el)el.remove()},6500)}
+
+// ============ SLIDES ============
+let cur=0;let total=19;
+function showSlide(n){
+  const slides=document.querySelectorAll('.slide');
+  total=slides.length;
+  if(n<0||n>=total)return;
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[n].classList.add('active');
+  cur=n;
+  document.getElementById('slideCounter').textContent=(n+1)+' / '+total;
+  document.getElementById('progressBar').style.width=((n+1)/total*100)+'%';
+  document.getElementById('backBtn').disabled=n===0;
+  const id=slides[n].id;
+  if(slideInit[id]&&!initFlags[id]){slideInit[id]();initFlags[id]=true}
+  saveState({slide:n});
+  window.scrollTo(0,0);
+}
+const initFlags={};
+const slideInit={
+  'slide-2':()=>{setTenths(0)},
+  'slide-4':()=>{newNL()},
+  'slide-5':()=>buildMT1(),
+  'slide-6':()=>{initHundredGrid();shade100(0)},
+  'slide-7':()=>{initFlexPart()},
+  'slide-8':()=>{initCmpGrids();initCmpQuiz()},
+  'slide-9':()=>buildMT2(),
+  'slide-10':()=>{resetDiv10(34);initDiv10Practice()},
+  'slide-11':()=>{initDiv100Practice()},
+  'slide-12':()=>buildMT3(),
+  'slide-13':()=>{newRound()},
+  'slide-14':()=>{initHouseGrid();houseScene('3bed')},
+  'slide-15':()=>buildMT4(),
+  'slide-v2-quarters':()=>initKeyEquivalents(),
+  'slide-v2-mixed':()=>initMixedPractice(),
+  'slide-v2-equiv':()=>initEquivSlide(),
+  'slide-v2-nltricks':()=>initNLTricks(),
+  'slide-v2-money':()=>initMoneyMeasure(),
+  'slide-v2-reasoning':()=>initReasoning(),
+  'slide-v2-mt5':()=>buildMT5(),
+  'slide-17':()=>buildFinalTest(),
+};
+function nextSlide(){if(cur<total-1){playSound('click');showSlide(cur+1)}}
+function prevSlide(){if(cur>0){playSound('click');showSlide(cur-1)}}
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide()});
+
+// ============ HOOK ============
+let hookSelected=new Set();
+function hookPick(el,id){
+  if(hookSelected.has(id)){hookSelected.delete(id);el.style.filter='';return}
+  hookSelected.add(id);el.style.filter='brightness(1.5) saturate(1.4)';playSound('click');
+  const fb=document.getElementById('hookFb');
+  if(hookSelected.size===2){
+    if(hookSelected.has('a')&&hookSelected.has('b')){
+      fb.className='quiz-feedback show correct-fb';
+      fb.textContent='🎉 Correct! Card A (7/10) and Card B (0.7) show the same amount.';
+      document.getElementById('hookStem').style.opacity='1';
+      playSound('correct');
+    } else {
+      fb.className='quiz-feedback show wrong-fb';
+      fb.textContent='❌ Not quite — try again. Look for the bar with 7 shaded out of 10, and the matching decimal.';
+      playSound('wrong');
+      setTimeout(()=>{hookSelected.clear();document.querySelectorAll('#slide-1 .click-shape').forEach(c=>c.style.filter='');fb.classList.remove('show')},2000);
+    }
+  }
+}
+
+// ============ TENTHS STRIP ============
+let tenthsCount=0;
+function setTenths(n){
+  tenthsCount=n;
+  for(let i=0;i<10;i++){
+    const cell=document.querySelector('#tenthsStrip .cell[data-i="'+i+'"]');
+    if(cell)cell.classList.toggle('shaded',i<n);
+  }
+  document.getElementById('tenthShaded').textContent=n;
+  document.getElementById('tenthNum').textContent=n;
+  document.getElementById('tenthDec').textContent=(n===10?'1.0':('0.'+n));
+  playSound('click');
+}
+function toggleTenth(i){
+  const cell=document.querySelector('#tenthsStrip .cell[data-i="'+i+'"]');
+  cell.classList.toggle('shaded');
+  let count=document.querySelectorAll('#tenthsStrip .cell.shaded').length;
+  tenthsCount=count;
+  document.getElementById('tenthShaded').textContent=count;
+  document.getElementById('tenthNum').textContent=count;
+  document.getElementById('tenthDec').textContent=(count===10?'1.0':('0.'+count));
+  playSound('click');
+}
+
+// ============ TENTH-COUNT QUICKFIRE ============
+let tcAns=0;
+function newTenthCount(){
+  const seqs=[
+    {seq:[0.7,0.8,'?',1.0,1.1],ans:0.9},
+    {seq:[0.8,0.9,'?',1.1,1.2],ans:1.0},
+    {seq:[2.7,2.8,2.9,'?',3.1],ans:3.0},
+    {seq:[1.4,1.3,'?',1.1,1.0],ans:1.2},
+  ];
+  const p=seqs[Math.floor(Math.random()*seqs.length)];
+  tcAns=p.ans;
+  let html='<div class="quiz-question"><div class="q-text">Fill the gap in the count:</div><div class="flex-center" style="font-size:1.4rem;font-weight:700;flex-wrap:wrap;">';
+  p.seq.forEach(v=>{html+='<span style="padding:6px 14px;border-radius:8px;background:'+(v==='?'?'rgba(245,158,11,.18)':'rgba(59,130,246,.12)')+';border:2px solid '+(v==='?'?'rgba(245,158,11,.45)':'rgba(59,130,246,.3)')+';color:'+(v==='?'?'var(--divide-color)':'var(--text)')+';">'+v+'</span>'});
+  html+='</div><div class="flex-center mt-16"><input type="number" step="0.1" id="tcInput" class="num-input" placeholder="?"><button class="action-btn check-btn" onclick="checkTC()">✓ Check</button></div><div class="quiz-feedback" id="tcFb"></div></div>';
+  document.getElementById('tenthCountArea').innerHTML=html;
+  playSound('click');
+}
+function checkTC(){
+  const v=parseFloat(document.getElementById('tcInput').value);
+  const fb=document.getElementById('tcFb');
+  if(Math.abs(v-tcAns)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+tcAns+' fits the count.';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Look again. Each step is 0.1. Answer: '+tcAns+'.';playSound('wrong')}
+}
+
+// ============ NUMBER LINE (TENTHS) ============
+let nlAns=0,nlStart=0;
+function buildNL(start,end,arrowVal,arrowLabel){
+  const c=document.getElementById('tenthsNL');
+  const span=end-start;
+  let html='<div class="nl-container"><div class="nl-line">';
+  for(let i=0;i<=span*10;i++){
+    const pct=(i/(span*10))*100;
+    const isMajor=i%10===0;
+    html+='<div class="nl-tick'+(isMajor?' major':'')+'" style="left:'+pct+'%;"></div>';
+    if(isMajor)html+='<div class="nl-label" style="left:'+pct+'%;">'+(start+i/10).toFixed(0)+'</div>';
+  }
+  const ap=((arrowVal-start)/span)*100;
+  html+='<div class="nl-arrow" style="left:'+ap+'%;">▼</div>';
+  if(arrowLabel)html+='<div class="nl-flag" style="left:'+ap+'%;top:32px;">'+arrowLabel+'</div>';
+  html+='</div></div>';
+  c.innerHTML=html;
+}
+function newNL(){
+  const ranges=[[0,1],[1,2],[2,3],[4,5]];
+  const r=ranges[Math.floor(Math.random()*ranges.length)];
+  nlStart=r[0];
+  const tenth=Math.floor(Math.random()*9)+1;
+  nlAns=parseFloat((r[0]+tenth/10).toFixed(1));
+  buildNL(r[0],r[1],nlAns,'?');
+  document.getElementById('nlAnswer').value='';
+  document.getElementById('nlFb').className='quiz-feedback';
+  playSound('click');
+}
+function checkNL(){
+  const v=parseFloat(document.getElementById('nlAnswer').value);
+  const fb=document.getElementById('nlFb');
+  if(Math.abs(v-nlAns)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! The arrow is at '+nlAns+'.';buildNL(nlStart,nlStart+1,nlAns,nlAns.toString());playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Each tick is 0.1. The answer is '+nlAns+'.';playSound('wrong')}
+}
+
+// ============ HUNDRED GRID ============
+function initHundredGrid(){
+  const g=document.getElementById('hundredGrid');
+  let html='';
+  for(let i=0;i<100;i++)html+='<div class="cell" data-i="'+i+'" onclick="toggleHundred('+i+')"></div>';
+  g.innerHTML=html;
+}
+function shade100(n){
+  for(let i=0;i<100;i++){
+    const cell=document.querySelector('#hundredGrid .cell[data-i="'+i+'"]');
+    if(cell){cell.classList.remove('shaded-tenth');cell.classList.toggle('shaded',i<n)}
+  }
+  updateHGcount();
+  playSound('click');
+}
+function shadeRows(rows){
+  for(let i=0;i<100;i++){
+    const cell=document.querySelector('#hundredGrid .cell[data-i="'+i+'"]');
+    if(cell){cell.classList.remove('shaded');cell.classList.toggle('shaded-tenth',i<rows*10)}
+  }
+  document.getElementById('hgCount').textContent=rows*10;
+  document.getElementById('hgNum').textContent=rows*10;
+  document.getElementById('hgDec').textContent=(rows===10?'1.00':('0.'+(rows<10?(rows*10):'')));
+  playSound('click');
+}
+function toggleHundred(i){
+  const cell=document.querySelector('#hundredGrid .cell[data-i="'+i+'"]');
+  cell.classList.remove('shaded-tenth');
+  cell.classList.toggle('shaded');
+  updateHGcount();
+  playSound('click');
+}
+function updateHGcount(){
+  const c=document.querySelectorAll('#hundredGrid .cell.shaded').length+document.querySelectorAll('#hundredGrid .cell.shaded-tenth').length;
+  document.getElementById('hgCount').textContent=c;
+  document.getElementById('hgNum').textContent=c;
+  let dec='0.00';
+  if(c===100)dec='1.00';
+  else if(c<10)dec='0.0'+c;
+  else dec='0.'+c;
+  document.getElementById('hgDec').textContent=dec;
+}
+
+// ============ FLEXIBLE PARTITIONING ============
+function initFlexPart(){
+  const opts=[
+    {a:'0.3 + 0.04',ok:true,why:'3 tenths + 4 hundredths = 0.34 ✅'},
+    {a:'0.2 + 0.14',ok:true,why:'2 tenths + 14 hundredths (which = 1 tenth + 4 hundredths) = 0.34 ✅'},
+    {a:'0.1 + 0.24',ok:true,why:'1 tenth + 24 hundredths = 0.34 ✅'},
+    {a:'0.4 + 0.06',ok:false,why:'❌ That makes 0.46, not 0.34.'},
+    {a:'3 + 0.4',ok:false,why:'❌ That makes 3.4 — way too big!'},
+  ];
+  const c=document.getElementById('flexPartArea');
+  let html='<div class="quiz-options" style="max-width:520px;margin:0 auto;">';
+  opts.forEach((o,i)=>{html+='<button class="quiz-opt" onclick="checkFlex('+i+','+o.ok+',\''+o.why.replace(/'/g,"\\'")+'\')">'+o.a+'</button>'});
+  html+='</div><div class="quiz-feedback" id="flexFb" style="max-width:520px;margin:12px auto 0;"></div>';
+  c.innerHTML=html;
+}
+function checkFlex(i,ok,why){
+  const fb=document.getElementById('flexFb');
+  if(ok){fb.className='quiz-feedback show correct-fb';fb.textContent='✅ '+why;playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent=why;playSound('wrong')}
+}
+
+// ============ COMPARE GRIDS (BIG NUMBER ILLUSION) ============
+function initCmpGrids(){
+  ['cmpGridA','cmpGridB'].forEach(id=>{
+    const g=document.getElementById(id);
+    let html='';
+    for(let i=0;i<100;i++)html+='<div class="cell"></div>';
+    g.innerHTML=html;
+  });
+  // 0.1 = 10 cells, 0.09 = 9 cells
+  document.querySelectorAll('#cmpGridA .cell').forEach((c,i)=>{if(i<10)c.classList.add('shaded-tenth')});
+  document.querySelectorAll('#cmpGridB .cell').forEach((c,i)=>{if(i<9)c.classList.add('shaded')});
+}
+function initCmpQuiz(){
+  const items=[
+    {q:'Write &lt;, &gt; or = : 0.4 ___ 0.05',ans:'>',choices:['<','>','=']},
+    {q:'Write &lt;, &gt; or = : 3/10 ___ 0.31',ans:'<',choices:['<','>','=']},
+    {q:'Write &lt;, &gt; or = : "eleven hundredths" ___ 0.11',ans:'=',choices:['<','>','=']},
+  ];
+  let html='';
+  items.forEach((q,qi)=>{
+    html+='<div class="quiz-question"><div class="q-text">'+q.q+'</div><div class="quiz-options" style="flex-direction:row;justify-content:center;">';
+    q.choices.forEach(ch=>{html+='<button class="quiz-opt" style="flex:0 0 60px;text-align:center;font-size:1.4rem;font-weight:800;" onclick="checkCmp(this,'+qi+',\''+ch+'\',\''+q.ans+'\')">'+ch+'</button>'});
+    html+='</div><div class="quiz-feedback" id="cmp-fb-'+qi+'"></div></div>';
+  });
+  document.getElementById('cmpQuizArea').innerHTML=html;
+}
+function checkCmp(btn,qi,picked,ans){
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('cmp-fb-'+qi);
+  if(picked===ans){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Correct!';playSound('correct')}
+  else{btn.classList.add('wrong');opts.forEach(o=>{if(o.textContent===ans)o.classList.add('correct')});fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Correct answer: '+ans+'. Tip: line up decimals with the same number of places.';playSound('wrong')}
+}
+
+// ============ DIVIDE BY 10 ============
+let div10Val=34;
+function resetDiv10(n){
+  div10Val=n;
+  document.getElementById('div10Display').textContent=n;
+  document.getElementById('d10-tens').textContent=n>=10?Math.floor(n/10):'';
+  document.getElementById('d10-ones').textContent=n%10;
+  document.getElementById('d10-tenths').textContent='';
+  document.getElementById('d10-hundredths').textContent='';
+  document.getElementById('div10Stem').innerHTML='Click "Divide by 10" to watch the digits shift right.';
+  playSound('click');
+}
+function animateDiv10(){
+  const tens=document.getElementById('d10-tens').textContent;
+  const ones=document.getElementById('d10-ones').textContent;
+  document.getElementById('d10-tens').textContent='';
+  document.getElementById('d10-ones').textContent=tens||'0';
+  document.getElementById('d10-tenths').textContent=ones;
+  const result=(div10Val/10).toFixed(div10Val%10===0?0:1);
+  document.getElementById('div10Display').textContent=div10Val+' ÷ 10 = '+result;
+  document.getElementById('div10Stem').innerHTML='Each digit moved <strong class="hl-divide">one column to the right</strong>. <strong>'+div10Val+' ÷ 10 = '+result+'</strong>.';
+  playSound('success');
+}
+function initDiv10Practice(){
+  const qs=[
+    {n:6,a:0.6},{n:9,a:0.9},{n:23,a:2.3},{n:50,a:5},{n:18,a:1.8},
+  ];
+  const q=qs[Math.floor(Math.random()*qs.length)];
+  const c=document.getElementById('div10Practice');
+  c.dataset.ans=q.a;
+  c.innerHTML='<div class="quiz-question"><div class="q-text">Work out: <strong>'+q.n+' ÷ 10</strong></div><div class="flex-center"><input type="number" step="0.1" id="d10pInput" class="num-input"><button class="action-btn check-btn" onclick="checkD10P()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="initDiv10Practice()">↻ New</button></div><div class="quiz-feedback" id="d10pFb"></div></div>';
+}
+function checkD10P(){
+  const v=parseFloat(document.getElementById('d10pInput').value);
+  const a=parseFloat(document.getElementById('div10Practice').dataset.ans);
+  const fb=document.getElementById('d10pFb');
+  if(Math.abs(v-a)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct!';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+a+'. Move every digit one place right.';playSound('wrong')}
+}
+
+// ============ GATTEGNO / DIVIDE BY 100 ============
+function gattegnoReset(){
+  document.querySelectorAll('.gcell').forEach(c=>c.classList.remove('lit'));
+  document.getElementById('gattegnoStem').innerHTML='Press a button to see the digits jump down the rows.';
+}
+function gattegno(n,places){
+  gattegnoReset();
+  // light up the parts of n: e.g., 45 = 40 (tens) + 5 (ones)
+  const tens=Math.floor(n/10)*10;
+  const ones=n%10;
+  if(tens>0){const c=document.querySelector('.grow-tens .gcell[data-val="'+tens+'"]');if(c)c.classList.add('lit')}
+  if(ones>0){const c=document.querySelector('.grow-ones .gcell[data-val="'+ones+'"]');if(c)c.classList.add('lit')}
+  setTimeout(()=>{
+    // drop down by `places`
+    document.querySelectorAll('.gcell.lit').forEach(c=>c.classList.remove('lit'));
+    const result=n/Math.pow(10,places);
+    if(places===1){
+      // ÷10 → tens→ones, ones→tenths
+      if(tens>0){const c=document.querySelector('.grow-ones .gcell[data-val="'+(tens/10)+'"]');if(c)c.classList.add('lit')}
+      if(ones>0){const c=document.querySelector('.grow-tenths .gcell[data-val="'+(ones/10).toFixed(1)+'"]');if(c)c.classList.add('lit')}
+    } else {
+      // ÷100 → tens→tenths, ones→hundredths
+      if(tens>0){const c=document.querySelector('.grow-tenths .gcell[data-val="'+(tens/100).toFixed(1)+'"]');if(c)c.classList.add('lit')}
+      if(ones>0){const c=document.querySelector('.grow-hundredths .gcell[data-val="'+(ones/100).toFixed(2)+'"]');if(c)c.classList.add('lit')}
+    }
+    document.getElementById('gattegnoStem').innerHTML='<strong>'+n+' ÷ '+(places===1?10:100)+' = '+result+'</strong>. Every counter dropped <strong class="hl-divide">'+places+'</strong> row'+(places===1?'':'s')+'.';
+    playSound('success');
+  },700);
+  playSound('click');
+}
+function initDiv100Practice(){
+  const qs=[
+    {n:45,a:0.45},{n:8,a:0.08},{n:60,a:0.6},{n:23,a:0.23},{n:7,a:0.07},{n:90,a:0.9},
+  ];
+  const q=qs[Math.floor(Math.random()*qs.length)];
+  const c=document.getElementById('div100Practice');
+  c.dataset.ans=q.a;
+  c.innerHTML='<div class="quiz-question"><div class="q-text">Work out: <strong>'+q.n+' ÷ 100</strong></div><div class="flex-center"><input type="number" step="0.01" id="d100pInput" class="num-input"><button class="action-btn check-btn" onclick="checkD100P()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="initDiv100Practice()">↻ New</button></div><div class="quiz-feedback" id="d100pFb"></div></div>';
+}
+function checkD100P(){
+  const v=parseFloat(document.getElementById('d100pInput').value);
+  const a=parseFloat(document.getElementById('div100Practice').dataset.ans);
+  const fb=document.getElementById('d100pFb');
+  if(Math.abs(v-a)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct!';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+a+'. Move every digit TWO places right (mind the placeholder zero!).';playSound('wrong')}
+}
+
+// ============ ROUNDING ============
+let roundVal=0,roundAnswer=0;
+function newRound(){
+  const pool=[0.4,0.8,1.3,1.7,2.5,3.2,3.5,4.9,6.3,8.7,15.7];
+  roundVal=pool[Math.floor(Math.random()*pool.length)];
+  roundAnswer=Math.round(roundVal+1e-9);  // .5 rounds up
+  // build a number line
+  const lo=Math.floor(roundVal);
+  const hi=lo+1;
+  const c=document.getElementById('roundNL');
+  let html='<div class="nl-container"><div class="nl-line">';
+  for(let i=0;i<=10;i++){
+    const pct=(i/10)*100;
+    const isEdge=i===0||i===10||i===5;
+    html+='<div class="nl-tick'+(i%5===0?' major':'')+'" style="left:'+pct+'%;"></div>';
+    if(i===0)html+='<div class="nl-label" style="left:'+pct+'%;">'+lo+'</div>';
+    else if(i===10)html+='<div class="nl-label" style="left:'+pct+'%;">'+hi+'</div>';
+    else if(i===5)html+='<div class="nl-label" style="left:'+pct+'%;color:var(--divide-color);font-weight:800;">'+(lo+0.5)+' ✋</div>';
+  }
+  const arrowPct=((roundVal-lo)*100);
+  html+='<div class="nl-arrow" style="left:'+arrowPct+'%;">▼</div><div class="nl-flag" style="left:'+arrowPct+'%;top:32px;">'+roundVal+'</div>';
+  html+='</div></div>';
+  c.innerHTML=html;
+  document.getElementById('roundAns').value='';
+  document.getElementById('roundFb').className='quiz-feedback';
+  playSound('click');
+}
+function checkRound(){
+  const v=parseInt(document.getElementById('roundAns').value);
+  const fb=document.getElementById('roundFb');
+  if(v===roundAnswer){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+roundVal+' rounds to '+roundAnswer+'.';playSound('correct')}
+  else{
+    let hint='';
+    const tenths=Math.round((roundVal-Math.floor(roundVal))*10);
+    if(tenths>=5)hint='Tenths digit is '+tenths+' (≥5) → round UP.';
+    else hint='Tenths digit is '+tenths+' (<5) → round DOWN.';
+    fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+roundAnswer+'. '+hint;playSound('wrong')
+  }
+}
+
+// ============ HOUSING ESTATE ============
+function initHouseGrid(){
+  const g=document.getElementById('houseGrid');
+  let html='';
+  for(let i=0;i<100;i++)html+='<div class="cell" data-i="'+i+'"></div>';
+  g.innerHTML=html;
+}
+function clearHouses(){document.querySelectorAll('#houseGrid .cell').forEach(c=>{c.classList.remove('shaded','shaded-tenth');c.style.background=''})}
+function shadeHouses(n,color){
+  const cells=document.querySelectorAll('#houseGrid .cell');
+  for(let i=0;i<n;i++){if(cells[i]){cells[i].style.background=color;cells[i].style.transition='background .25s'}}
+}
+function houseScene(s){
+  clearHouses();
+  const stem=document.getElementById('houseStem');
+  if(s==='3bed'){shadeHouses(24,'var(--tenth-color)');stem.innerHTML='<strong>0.24</strong> of <strong>100</strong> have 3 bedrooms = <strong class="hl-tenth">24 houses</strong>'}
+  else if(s==='5bed'){shadeHouses(11,'var(--hundredth-color)');stem.innerHTML='<strong>0.11</strong> of <strong>100</strong> have 5 bedrooms = <strong class="hl-hundredth">11 houses</strong>'}
+  else if(s==='garden'){shadeHouses(98,'#10B981');stem.innerHTML='<strong>0.98</strong> of <strong>100</strong> have a garden = <strong style="color:#10B981;">98 houses</strong>. So <strong>2 houses</strong> have no garden (1 − 0.98 = 0.02).'}
+  else if(s==='garage'){shadeHouses(50,'#F59E0B');stem.innerHTML='<strong>1/2</strong> of <strong>100</strong> have a garage = <strong class="hl-divide">50 houses</strong>'}
+  else stem.innerHTML='Pick a button to shade the houses.';
+  playSound('click');
+}
+
+// ============ QUIZ BUILDER ============
+function buildQuiz(cId,qs,rId,name,isFinal){
+  const c=document.getElementById(cId);let html='';
+  qs.forEach((q,qi)=>{
+    html+='<div class="quiz-question" id="'+cId+'-q'+qi+'">';
+    if(q.type==='explain'){
+      html+='<div class="q-text">✍️ '+q.q+'</div>'+
+        '<textarea id="'+cId+'-ex'+qi+'" rows="3" placeholder="Type your explanation here..." style="width:100%;padding:12px;border-radius:10px;border:2px solid var(--card-border);background:rgba(255,255,255,0.06);color:var(--text);font-family:inherit;font-size:.95rem;resize:vertical;box-sizing:border-box;"></textarea>'+
+        '<div class="btn-row" style="justify-content:flex-start;margin-top:10px;"><button class="action-btn" style="background:var(--accent);" onclick="revealExplain(this,\''+cId+'\',\''+rId+'\','+qs.length+','+!!isFinal+','+qi+')">🔍 Show model answer</button></div>'+
+        '<div class="quiz-feedback" id="'+cId+'-fb'+qi+'" data-model="'+q.model.replace(/"/g,'&quot;').replace(/'/g,'&#39;')+'"></div>';
+    } else {
+      html+='<div class="q-text">'+q.q+'</div><div class="quiz-options">';
+      q.opts.forEach((opt,oi)=>{html+='<button class="quiz-opt" data-qi="'+qi+'" data-oi="'+oi+'" data-correct="'+q.correct+'" onclick="handleAns(this,\''+cId+'\',\''+rId+'\','+qs.length+','+!!isFinal+')">'+opt+'</button>'});
+      html+='</div><div class="quiz-feedback" id="'+cId+'-fb'+qi+'"></div>';
+    }
+    html+='</div>';
+  });
+  c.innerHTML=html;c.dataset.score='0';c.dataset.answered='0';c.dataset.total=qs.length;c.dataset.testName=name;
+}
+function finishTest(cId,rId,total,isFinal){
+  const c=document.getElementById(cId);
+  const r=document.getElementById(rId);r.classList.remove('hidden');
+  const sc=+c.dataset.score;const pct=Math.round(sc/total*100);
+  let emoji=pct>=90?'🌟':pct>=70?'👍':'💪';
+  r.innerHTML='<div style="font-size:2rem;">'+emoji+'</div><div style="font-size:1.5rem;font-weight:800;margin:8px 0;">'+sc+' / '+total+'</div><div style="color:var(--text-dim);">'+c.dataset.testName+' Complete!</div>';
+  if(isFinal)updateCert(sc,total);
+  playSound('success');
+}
+function handleAns(btn,cId,rId,total,isFinal){
+  const qi=+btn.dataset.qi,oi=+btn.dataset.oi,correct=+btn.dataset.correct;
+  const c=document.getElementById(cId),fb=document.getElementById(cId+'-fb'+qi);
+  const qDiv=document.getElementById(cId+'-q'+qi);
+  qDiv.querySelectorAll('.quiz-opt').forEach(o=>o.classList.add('disabled'));
+  if(oi===correct){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Correct!';c.dataset.score=+c.dataset.score+1;playSound('correct')}
+  else{btn.classList.add('wrong');qDiv.querySelectorAll('.quiz-opt')[correct].classList.add('correct');fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Correct answer: '+qDiv.querySelectorAll('.quiz-opt')[correct].textContent;playSound('wrong')}
+  c.dataset.answered=+c.dataset.answered+1;
+  if(+c.dataset.answered===total){setTimeout(()=>finishTest(cId,rId,total,isFinal),1e3)}
+}
+function revealExplain(btn,cId,rId,total,isFinal,qi){
+  const c=document.getElementById(cId);
+  const fb=document.getElementById(cId+'-fb'+qi);
+  const ta=document.getElementById(cId+'-ex'+qi);
+  const hasAttempt=ta.value.trim().length>=5;
+  btn.disabled=true;btn.style.opacity='0.5';ta.disabled=true;
+  fb.className='quiz-feedback show '+(hasAttempt?'correct-fb':'wrong-fb');
+  fb.innerHTML=(hasAttempt?'✅ <strong>Good effort!</strong> Here\'s a model answer:<br><br>':'💡 <strong>Try writing at least one sentence next time.</strong> Here\'s a model answer:<br><br>')+'<em>'+fb.dataset.model+'</em>';
+  if(hasAttempt)c.dataset.score=+c.dataset.score+1;
+  c.dataset.answered=+c.dataset.answered+1;
+  playSound(hasAttempt?'correct':'click');
+  if(+c.dataset.answered===total){setTimeout(()=>finishTest(cId,rId,total,isFinal),1e3)}
+}
+function updateCert(sc,total){
+  const pct=Math.round(sc/total*100);
+  document.getElementById('certScore').textContent=sc+'/'+total;
+  if(pct>=90){document.getElementById('certTitle').textContent='🌟 Decimals Master!';document.getElementById('certScore').className='score-circle gold';document.getElementById('certMessage').innerHTML='Outstanding! You have <strong>mastered Year 4 Decimals</strong>. Onwards to Money or Time!'}
+  else if(pct>=70){document.getElementById('certTitle').textContent='👍 Great Work!';document.getElementById('certScore').className='score-circle silver';document.getElementById('certMessage').innerHTML='Solid progress. Re-watch the slides on the questions you missed, then try the Final Test again.'}
+  else{document.getElementById('certTitle').textContent='💪 Keep Practising!';document.getElementById('certScore').className='score-circle bronze';document.getElementById('certMessage').innerHTML='Foundations need a bit more work. Go back to the slide for each missed topic and practise the mini-tests.'}
+}
+
+// ============ MINI TESTS ============
+function buildMT1(){buildQuiz('miniTest1',[
+  {q:'1. Which decimal equals 7/10?',opts:['0.07','0.7','7.0','0.70'],correct:1},
+  {q:'2. The bar shows 3 out of 10 parts shaded. What is the decimal?',opts:['0.3','0.03','3.0','3/10'],correct:0},
+  {q:'3. In the number 4.6, the digit in the tenths column is:',opts:['4','6','0','46'],correct:1},
+  {q:'4. Counting in 0.1s: 0.7, 0.8, 0.9, ___. What comes next?',opts:['0.10','1.0','0.91','0.99'],correct:1},
+  {q:'5. Which fraction equals 0.9?',opts:['9/100','9','9/10','90'],correct:2},
+  {q:'6. On a number line from 4 to 5 split into 10 equal ticks, the 7th tick from 4 is:',opts:['4.07','0.7','4.7','7'],correct:2},
+  {type:'explain',q:'7. Tiny says "after 0.9 the next number is 0.10". Explain why this is wrong.',model:'There are only 10 tenths in 1 whole. 0.9 already uses 9 of them, and 1 more tenth makes 10 tenths = 1 whole. So the next number is 1.0, not 0.10. Writing "0.10" would mean 10 tenths in the tenths column, but only 1 digit can sit in each column ("one number per room").'},
+],'mt1Result','Mini Test 1')}
+
+function buildMT2(){buildQuiz('miniTest2',[
+  {q:'1. Which decimal equals 3/100?',opts:['0.3','0.03','0.003','3.00'],correct:1},
+  {q:'2. In 2.45 the digit in the hundredths column is:',opts:['2','4','5','0'],correct:2},
+  {q:'3. Which is bigger: 0.4 or 0.05?',opts:['0.05','0.4','They are equal'],correct:1},
+  {q:'4. Which is bigger: 0.09 or 0.1?',opts:['0.09','0.1','They are equal'],correct:1},
+  {q:'5. 3/10 = ?/100',opts:['3','30','13','100'],correct:1},
+  {q:'6. Which is a correct partition of 0.34?',opts:['0.4 + 0.06','0.2 + 0.14','3 + 0.4','0.34 + 0.01'],correct:1},
+  {type:'explain',q:'7. Dora says "0.09 is greater than 0.1 because 9 is greater than 1." Explain why she is wrong using place value.',model:'9 is in the hundredths column of 0.09, and 1 is in the tenths column of 0.1. The tenths column is worth more than the hundredths column. 0.1 = 0.10 = 10 hundredths, and 10 > 9, so 0.1 is bigger than 0.09. You can\'t just compare the digits — you have to compare the place value first.'},
+],'mt2Result','Mini Test 2')}
+
+function buildMT3(){buildQuiz('miniTest3',[
+  {q:'1. 6 ÷ 10 = ?',opts:['0.06','0.6','6.0','60'],correct:1},
+  {q:'2. 23 ÷ 10 = ?',opts:['0.23','2.03','2.3','230'],correct:2},
+  {q:'3. 50 ÷ 10 = ?',opts:['0.5','5','5.0','0.05'],correct:1},
+  {q:'4. 45 ÷ 100 = ?',opts:['0.45','4.5','0.045','40.05'],correct:0},
+  {q:'5. 7 ÷ 100 = ?',opts:['0.7','0.07','0.007','70'],correct:1},
+  {q:'6. My answer to "?? ÷ 10" was 4.7. What did I divide by 10?',opts:['4.7','47','470','0.47'],correct:1},
+  {type:'explain',q:'7. Tiny says "45 ÷ 100 = 40.05 because the 5 moves but the 4 stays." Explain why this is wrong.',model:'When dividing, the digits are "glued together" — they all move at once. ÷100 means every digit moves 2 columns to the right. So 4 (tens) moves to tenths, and 5 (ones) moves to hundredths. The answer is 0.45, not 40.05. The 4 cannot stay still while the 5 moves.'},
+],'mt3Result','Mini Test 3')}
+
+function buildMT4(){buildQuiz('miniTest4',[
+  {q:'1. Round 3.2 to the nearest whole.',opts:['3','4','3.5','2'],correct:0},
+  {q:'2. Round 4.9 to the nearest whole.',opts:['4','4.5','5','9'],correct:2},
+  {q:'3. Round 3.5 to the nearest whole.',opts:['3','3.5','4','5'],correct:2},
+  {q:'4. Round 0.4 to the nearest whole.',opts:['0','0.4','1','4'],correct:0},
+  {q:'5. There are 100 children in a school. 0.35 walk and 0.45 take the bus. How many are driven?',opts:['10','20','30','45'],correct:1},
+  {q:'6. A ribbon is 1 m long. Jack uses 0.6 of it. How much is left, as a decimal?',opts:['0.4','0.6','0.06','4'],correct:0},
+  {type:'explain',q:'7. Explain how to find 0.24 of 100 houses, step by step.',model:'Step 1: Write 0.24 as a fraction → 24/100. Step 2: 0.24 of 100 means "24 out of every 100", so out of 100 houses it is exactly 24. (More generally: divide the quantity by the denominator, then multiply by the numerator. 100 ÷ 100 = 1, then 1 × 24 = 24.)'},
+],'mt4Result','Mini Test 4')}
+
+function buildFinalTest(){buildQuiz('finalTest',[
+  {q:'1. Which decimal equals 9/100?',opts:['0.9','0.09','0.009','9.0'],correct:1},
+  {q:'2. In the number 6.37 the digit in the tenths column is:',opts:['6','3','7','0'],correct:1},
+  {q:'3. Which is biggest?',opts:['0.05','0.5','½','All the same'],correct:3},
+  {q:'4. ¼ as a decimal is:',opts:['0.14','0.25','0.4','1.4'],correct:1},
+  {q:'5. ¾ as a decimal is:',opts:['0.34','0.43','0.75','3.4'],correct:2},
+  {q:'6. 0.34 = ',opts:['0.3 + 0.4','0.3 + 0.04','3 + 0.4','0.03 + 0.4'],correct:1},
+  {q:'7. 8 ÷ 10 = ?',opts:['0.08','0.8','80','8'],correct:1},
+  {q:'8. 60 ÷ 10 = ?',opts:['0.6','6','60','600'],correct:1},
+  {q:'9. 23 ÷ 100 = ?',opts:['2.3','0.23','0.023','230'],correct:1},
+  {q:'10. 7 ÷ 100 = ?',opts:['0.7','0.07','0.007','70'],correct:1},
+  {q:'11. Round 6.3 to the nearest whole:',opts:['5','6','7','6.5'],correct:1},
+  {q:'12. Round 8.7 to the nearest whole:',opts:['7','8','9','10'],correct:2},
+  {q:'13. Round 3.5 to the nearest whole:',opts:['3','3.5','4','5'],correct:2},
+  {q:'14. £3.45 in pence is:',opts:['34p','345p','3450p','3.45p'],correct:1},
+  {q:'15. 240cm in metres is:',opts:['0.24m','2.4m','24m','240m'],correct:1},
+  {q:'16. Write 5 + 3/100 as a decimal:',opts:['5.3','5.03','5.30','53'],correct:1},
+  {q:'17. 7/10 = ?/100. The missing number is:',opts:['7','17','70','700'],correct:2},
+  {q:'18. There are 100 houses. 0.98 have a garden. How many do NOT have a garden?',opts:['98','2','0.02','100'],correct:1},
+  {q:'19. There are 100 houses. 0.24 have 3 bedrooms, 0.11 have 5 bedrooms, the rest have 4 bedrooms. How many have 4 bedrooms?',opts:['35','45','55','65'],correct:3},
+  {type:'explain',q:'20. Explain why 0.1 is bigger than 0.09, even though 9 is bigger than 1. Use the words "tenths" and "hundredths".',model:'0.1 is one tenth, the same as 10 hundredths (because 1 tenth = 10 hundredths). 0.09 is 9 hundredths. Comparing 10 hundredths to 9 hundredths: 10 > 9, so 0.1 > 0.09. The tenths column is worth ten times more than the hundredths column, so a digit in the tenths column "wins" against a bigger digit in the hundredths column. The trick is to give both decimals the same number of decimal places (0.10 vs 0.09) so you can compare like with like.'},
+],'finalResult','Final Mastery Assessment',true)}
+
+// ============ V2.1: KEY EQUIVALENTS (¼, ½, ¾) ============
+function initKeyEquivalents(){
+  const cards=[
+    {f:'¼',d:'0.25',n:25,col:'var(--tenth-color)'},
+    {f:'½',d:'0.5',n:50,col:'var(--hundredth-color)'},
+    {f:'¾',d:'0.75',n:75,col:'var(--round-color)'}
+  ];
+  const row=document.getElementById('keCardsRow');
+  let html='';
+  cards.forEach((c,i)=>{
+    let grid='';
+    for(let k=0;k<100;k++)grid+='<div class="cell" style="'+(k<c.n?'background:'+c.col+';':'')+'"></div>';
+    html+='<div class="shape-box click-shape" onclick="qrevealKE('+i+')"><div class="hundred-grid" style="max-width:140px;">'+grid+'</div><div class="label" id="ke-label-'+i+'" style="font-size:1.4rem;font-weight:800;color:'+c.col+';margin-top:6px;">'+c.f+' = ?</div></div>';
+  });
+  row.innerHTML=html;
+  buildKeMatch();
+}
+function qrevealKE(i){
+  const decs=['0.25','0.5','0.75'];
+  const fracs=['¼','½','¾'];
+  document.getElementById('ke-label-'+i).textContent=fracs[i]+' = '+decs[i];
+  playSound('click');
+}
+function buildKeMatch(){
+  const pairs=[
+    {q:'Which decimal is the same as ½?',opts:['0.05','0.5','0.50','Both 0.5 and 0.50'],correct:3},
+    {q:'¾ as a decimal is:',opts:['0.34','0.43','0.75','3.4'],correct:2},
+    {q:'¼ as a decimal is:',opts:['0.14','0.25','0.4','1.4'],correct:1},
+    {q:'Which is bigger: 0.6 or ¾?',opts:['0.6 is bigger','¾ is bigger','They are equal'],correct:1},
+  ];
+  const c=document.getElementById('keMatchArea');
+  let html='';
+  pairs.forEach((p,qi)=>{
+    html+='<div class="quiz-question"><div class="q-text">'+p.q+'</div><div class="quiz-options">';
+    p.opts.forEach((o,oi)=>{html+='<button class="quiz-opt" onclick="checkKeMatch(this,'+qi+','+oi+','+p.correct+')">'+o+'</button>'});
+    html+='</div><div class="quiz-feedback" id="ke-fb-'+qi+'"></div></div>';
+  });
+  c.innerHTML=html;
+}
+function checkKeMatch(btn,qi,oi,correct){
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('ke-fb-'+qi);
+  if(oi===correct){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Correct!';playSound('correct')}
+  else{btn.classList.add('wrong');opts[correct].classList.add('correct');fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Correct: '+opts[correct].textContent;playSound('wrong')}
+}
+
+// ============ V2.2: MIXED NUMBERS ============
+function initMixedPractice(){
+  const qs=[
+    {q:'Write 3 + <span class="frac"><span class="num">7</span><span class="den">10</span></span> as a decimal',a:3.7,hint:'3.7 (7 tenths)'},
+    {q:'Write 12 + <span class="frac"><span class="num">5</span><span class="den">10</span></span> as a decimal',a:12.5,hint:'12.5 (5 tenths)'},
+    {q:'Write 8 + <span class="frac"><span class="num">3</span><span class="den">100</span></span> as a decimal',a:8.03,hint:'8.03 (3 hundredths needs the placeholder zero!)'},
+    {q:'Write 16 + <span class="frac"><span class="num">9</span><span class="den">100</span></span> as a decimal',a:16.09,hint:'16.09 (9 hundredths)'},
+    {q:'Write 5 + <span class="frac"><span class="num">47</span><span class="den">100</span></span> as a decimal',a:5.47,hint:'5.47 (47 hundredths = 4 tenths + 7 hundredths)'},
+    {q:'Write 4 + <span class="frac"><span class="num">9</span><span class="den">10</span></span> as a decimal',a:4.9,hint:'4.9'},
+  ];
+  const q=qs[Math.floor(Math.random()*qs.length)];
+  const c=document.getElementById('mixedPracticeArea');
+  c.dataset.ans=q.a;c.dataset.hint=q.hint;
+  c.innerHTML='<div class="quiz-question"><div class="q-text">'+q.q+'</div><div class="flex-center"><input type="number" step="0.01" id="mixInput" class="num-input"><button class="action-btn check-btn" onclick="checkMixed()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="initMixedPractice()">↻ New</button></div><div class="quiz-feedback" id="mixFb"></div></div>';
+}
+function checkMixed(){
+  const v=parseFloat(document.getElementById('mixInput').value);
+  const c=document.getElementById('mixedPracticeArea');
+  const a=parseFloat(c.dataset.ans);
+  const fb=document.getElementById('mixFb');
+  if(Math.abs(v-a)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+c.dataset.hint;playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+a+'. '+c.dataset.hint;playSound('wrong')}
+}
+
+// ============ V2.3: EQUIVALENCE FLUENCY ============
+function initEquivSlide(){
+  const tenthsG=document.getElementById('eq-grid-tenths');
+  let h1='';
+  for(let i=0;i<100;i++){
+    const row=Math.floor(i/10);
+    h1+='<div class="cell" style="'+(row<3?'background:var(--tenth-color);':'')+'"></div>';
+  }
+  tenthsG.innerHTML=h1;
+  const hundG=document.getElementById('eq-grid-hundredths');
+  let h2='';
+  for(let i=0;i<100;i++)h2+='<div class="cell" style="'+(i<30?'background:var(--hundredth-color);':'')+'"></div>';
+  hundG.innerHTML=h2;
+  newEquivDrill();
+  newMakeWhole();
+}
+let equivAns=0;
+function newEquivDrill(){
+  const items=[
+    {q:'3/10 = ?/100',a:30},
+    {q:'70/100 = ?/10',a:7},
+    {q:'5/10 = ?/100',a:50},
+    {q:'40/100 = ?/10',a:4},
+    {q:'9/10 = ?/100',a:90},
+    {q:'10/100 = ?/10',a:1},
+  ];
+  const p=items[Math.floor(Math.random()*items.length)];
+  equivAns=p.a;
+  document.getElementById('equivDrillArea').innerHTML='<div class="quiz-question"><div class="q-text">Fill in: <strong>'+p.q+'</strong></div><div class="flex-center"><input type="number" id="eqInput" class="num-input"><button class="action-btn check-btn" onclick="checkEquiv()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="newEquivDrill()">↻ New</button></div><div class="quiz-feedback" id="eqFb"></div></div>';
+}
+function checkEquiv(){
+  const v=parseFloat(document.getElementById('eqInput').value);
+  const fb=document.getElementById('eqFb');
+  if(v===equivAns){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+equivAns;playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+equivAns+'. Remember: 1 tenth = 10 hundredths.';playSound('wrong')}
+}
+let mwAns=0;
+function newMakeWhole(){
+  const items=[
+    {q:'2/10 + ?/100 = 1',a:80},
+    {q:'5/10 + ?/100 = 1',a:50},
+    {q:'7/10 + ?/100 = 1',a:30},
+    {q:'?/10 + 60/100 = 1',a:4},
+    {q:'4/10 + ?/100 = 1',a:60},
+  ];
+  const p=items[Math.floor(Math.random()*items.length)];
+  mwAns=p.a;
+  document.getElementById('makeWholeArea').innerHTML='<div class="quiz-question"><div class="q-text">Make a whole: <strong>'+p.q+'</strong></div><div class="flex-center"><input type="number" id="mwInput" class="num-input"><button class="action-btn check-btn" onclick="checkMW()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="newMakeWhole()">↻ New</button></div><div class="quiz-feedback" id="mwFb"></div></div>';
+}
+function checkMW(){
+  const v=parseFloat(document.getElementById('mwInput').value);
+  const fb=document.getElementById('mwFb');
+  if(v===mwAns){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct!';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+mwAns+'. Convert tenths to hundredths first, then make 100.';playSound('wrong')}
+}
+
+// ============ V2.4: NUMBER LINE TRICKS ============
+function initNLTricks(){
+  const c=document.getElementById('trick1NL');
+  let html='<div style="display:flex;flex-direction:column;gap:30px;">';
+  html+='<div><div style="font-weight:700;color:var(--tenth-color);text-align:left;margin-bottom:6px;">Line A (scale: 6 → 7)</div><div class="nl-container"><div class="nl-line">';
+  for(let i=0;i<=10;i++){
+    const pct=i*10;
+    html+='<div class="nl-tick'+(i%5===0?' major':'')+'" style="left:'+pct+'%;"></div>';
+    if(i===0)html+='<div class="nl-label" style="left:'+pct+'%;">6</div>';
+    if(i===10)html+='<div class="nl-label" style="left:'+pct+'%;">7</div>';
+  }
+  html+='<div class="nl-arrow" style="left:50%;color:var(--tenth-color);">▼</div><div class="nl-flag" style="left:50%;top:32px;background:rgba(59,130,246,.18);color:var(--tenth-color);">A</div>';
+  html+='</div></div></div>';
+  html+='<div><div style="font-weight:700;color:var(--hundredth-color);text-align:left;margin-bottom:6px;">Line B (scale: 6 → 8)</div><div class="nl-container"><div class="nl-line">';
+  for(let i=0;i<=10;i++){
+    const pct=i*10;
+    html+='<div class="nl-tick'+(i%5===0?' major':'')+'" style="left:'+pct+'%;"></div>';
+    if(i===0)html+='<div class="nl-label" style="left:'+pct+'%;">6</div>';
+    if(i===10)html+='<div class="nl-label" style="left:'+pct+'%;">8</div>';
+  }
+  html+='<div class="nl-arrow" style="left:50%;color:var(--hundredth-color);">▼</div><div class="nl-flag" style="left:50%;top:32px;background:rgba(16,185,129,.18);color:var(--hundredth-color);">B</div>';
+  html+='</div></div></div>';
+  html+='</div>';
+  c.innerHTML=html;
+  document.getElementById('trick1Quiz').innerHTML='<div class="quiz-question" style="margin-top:14px;"><div class="q-text">The arrows are in the same place. Are A and B equal in value?</div><div class="quiz-options"><button class="quiz-opt" onclick="checkTrick1(this,true)">Yes — same position, same value</button><button class="quiz-opt" onclick="checkTrick1(this,false)">No — different scales mean different values</button></div><div class="quiz-feedback" id="trick1Fb"></div></div>';
+  buildEstLine();
+  buildCountSteps();
+}
+function checkTrick1(btn,picked){
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('trick1Fb');
+  if(picked===false){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Correct! Line A halfway = 6.5. Line B halfway = 7. Same position, DIFFERENT values.';playSound('correct')}
+  else{btn.classList.add('wrong');opts[1].classList.add('correct');fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Always check the scale! Line A is 6 → 7 (halfway = 6.5). Line B is 6 → 8 (halfway = 7). NOT equal.';playSound('wrong')}
+}
+function buildEstLine(){
+  const c=document.getElementById('estLine');
+  let html='<div class="nl-container"><div class="nl-line">';
+  html+='<div class="nl-tick major" style="left:0;"></div><div class="nl-label" style="left:0;">2</div>';
+  html+='<div class="nl-tick major" style="left:100%;"></div><div class="nl-label" style="left:100%;">4</div>';
+  html+='</div></div>';
+  html+='<div class="quiz-question"><div class="q-text">If you mark <strong>2.7</strong> on this line (which spans 2 → 4), where would it sit? (% from the left)</div><div class="quiz-options" style="flex-direction:row;justify-content:flex-start;gap:8px;flex-wrap:wrap;"><button class="quiz-opt" onclick="checkEst(this,15)" style="flex:0 0 100px;text-align:center;">15%</button><button class="quiz-opt" onclick="checkEst(this,35)" style="flex:0 0 100px;text-align:center;">35%</button><button class="quiz-opt" onclick="checkEst(this,70)" style="flex:0 0 100px;text-align:center;">70%</button></div><div class="quiz-feedback" id="estFb"></div></div>';
+  c.innerHTML=html;
+}
+function checkEst(btn,picked){
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('estFb');
+  if(picked===35){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Correct! The line is 2 long. 2.7 is 0.7 along, so 0.7 ÷ 2 = 35% from the left.';playSound('correct')}
+  else{btn.classList.add('wrong');opts.forEach(o=>{if(o.textContent==='35%')o.classList.add('correct')});fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ The line spans 2 (length 2). 2.7 is 0.7 along, so 0.7/2 = 35%.';playSound('wrong')}
+}
+let csAns=0;
+function buildCountSteps(){
+  const seqs=[
+    {seq:[0.2,0.4,'?',0.8,1.0],ans:0.6},
+    {seq:[1.5,1.7,'?',2.1,2.3],ans:1.9},
+    {seq:[0.05,0.10,'?',0.20,0.25],ans:0.15},
+    {seq:[3.4,3.5,'?',3.7,3.8],ans:3.6},
+    {seq:[0.6,0.9,'?',1.5,1.8],ans:1.2},
+  ];
+  const p=seqs[Math.floor(Math.random()*seqs.length)];
+  csAns=p.ans;
+  let html='<div class="quiz-question"><div class="q-text">What\'s the missing number? (Look at the gap between adjacent numbers)</div><div class="flex-center" style="font-size:1.3rem;font-weight:700;flex-wrap:wrap;">';
+  p.seq.forEach(v=>{html+='<span style="padding:6px 14px;border-radius:8px;background:'+(v==='?'?'rgba(245,158,11,.18)':'rgba(139,92,246,.12)')+';border:2px solid '+(v==='?'?'rgba(245,158,11,.45)':'rgba(139,92,246,.3)')+';color:'+(v==='?'?'var(--divide-color)':'var(--text)')+';">'+v+'</span>'});
+  html+='</div><div class="flex-center mt-16"><input type="number" step="0.01" id="csInput" class="num-input"><button class="action-btn check-btn" onclick="checkCS()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="buildCountSteps()">↻ New</button></div><div class="quiz-feedback" id="csFb"></div></div>';
+  document.getElementById('countSteps').innerHTML=html;
+}
+function checkCS(){
+  const v=parseFloat(document.getElementById('csInput').value);
+  const fb=document.getElementById('csFb');
+  if(Math.abs(v-csAns)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+csAns;playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+csAns+'.';playSound('wrong')}
+}
+function showTrailingZero(picked){
+  const fb=document.getElementById('trailingFb');
+  if(picked==='both'){fb.className='quiz-feedback show correct-fb';fb.textContent='✅ Both! 0.7 = 0.70 — same value (7 tenths = 70 hundredths). Trailing zero adds nothing. We usually write 0.7 (simpler), but 0.70 is also correct, especially when comparing 2dp decimals.';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Both are correct! 0.7 = 0.70. The trailing zero doesn\'t change the value. Tip: when comparing to 0.65, write 0.7 as 0.70 to line them up.';playSound('wrong')}
+}
+
+// ============ V2.5: MONEY & MEASUREMENT ============
+function initMoneyMeasure(){newMoneyQ();newMeasureQ()}
+let moneyAns=0,moneyType='';
+function newMoneyQ(){
+  const qs=[
+    {q:'Write £3.45 as pence (p)',a:345,t:'p'},
+    {q:'Write 280p in pounds (£)',a:2.80,t:'pounds'},
+    {q:'A book costs £4.65. Write this in pence.',a:465,t:'p'},
+    {q:'Lily has 80p. Write this in pounds.',a:0.80,t:'pounds'},
+    {q:'Sam paid £5.07. How many pence is that?',a:507,t:'p'},
+    {q:'£0.06 in pence?',a:6,t:'p'},
+  ];
+  const p=qs[Math.floor(Math.random()*qs.length)];
+  moneyAns=p.a;moneyType=p.t;
+  document.getElementById('moneyPracticeArea').innerHTML='<div class="quiz-question"><div class="q-text">'+p.q+'</div><div class="flex-center"><input type="number" step="0.01" id="moneyInput" class="num-input"><button class="action-btn check-btn" onclick="checkMoney()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="newMoneyQ()">↻ New</button></div><div class="quiz-feedback" id="moneyFb"></div></div>';
+}
+function checkMoney(){
+  const v=parseFloat(document.getElementById('moneyInput').value);
+  const fb=document.getElementById('moneyFb');
+  if(Math.abs(v-moneyAns)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+(moneyType==='p'?moneyAns+'p':'£'+moneyAns.toFixed(2));playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+(moneyType==='p'?moneyAns+'p':'£'+moneyAns.toFixed(2))+'. Remember: ×100 for £→p, ÷100 for p→£.';playSound('wrong')}
+}
+let measureAns=0,measureType='';
+function newMeasureQ(){
+  const qs=[
+    {q:'Write 175cm in metres',a:1.75,t:'m'},
+    {q:'Write 3.4m in cm',a:340,t:'cm'},
+    {q:'Write 8cm in metres',a:0.08,t:'m'},
+    {q:'Write 2.05m in cm',a:205,t:'cm'},
+    {q:'Write 60cm in metres',a:0.6,t:'m'},
+    {q:'Write 4.7m in cm',a:470,t:'cm'},
+  ];
+  const p=qs[Math.floor(Math.random()*qs.length)];
+  measureAns=p.a;measureType=p.t;
+  document.getElementById('measurePracticeArea').innerHTML='<div class="quiz-question"><div class="q-text">'+p.q+'</div><div class="flex-center"><input type="number" step="0.01" id="measureInput" class="num-input"><button class="action-btn check-btn" onclick="checkMeasure()">✓ Check</button><button class="action-btn" style="background:var(--accent);" onclick="newMeasureQ()">↻ New</button></div><div class="quiz-feedback" id="measureFb"></div></div>';
+}
+function checkMeasure(){
+  const v=parseFloat(document.getElementById('measureInput').value);
+  const fb=document.getElementById('measureFb');
+  if(Math.abs(v-measureAns)<1e-9){fb.className='quiz-feedback show correct-fb';fb.textContent='🎉 Correct! '+measureAns+measureType;playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ Answer: '+measureAns+measureType+'. Remember: ÷100 for cm→m, ×100 for m→cm.';playSound('wrong')}
+}
+
+// ============ V2.6: REASONING GRID ============
+function initReasoning(){buildASN();buildDigitCard();buildWhoRight();buildPattern()}
+function buildASN(){
+  const claims=[
+    {claim:'A 2-digit whole number divided by 100 always has 0 in the ones column.',ans:'always',why:'45 ÷ 100 = 0.45, 80 ÷ 100 = 0.80. The ones column is always 0 — both digits move 2 places right.'},
+    {claim:'When you round a decimal to the nearest whole, the answer is always bigger.',ans:'sometimes',why:'Sometimes — if the tenths digit is ≥5 (e.g. 3.7 → 4). Sometimes the answer is smaller — if tenths < 5 (e.g. 3.2 → 3).'},
+    {claim:'A decimal with 6 in the tenths column is bigger than one with 5 in the hundredths column.',ans:'always',why:'Tenths is worth 10× more than hundredths. So 0.6 (=0.60) > 0.05 always.'},
+    {claim:'A 1-digit whole number divided by 10 has no ones, just tenths.',ans:'always',why:'1–9 ÷ 10 always gives 0.something — the digit becomes the tenths digit.'},
+  ];
+  let html='';
+  claims.forEach((c,i)=>{
+    html+='<div class="quiz-question"><div class="q-text">'+(i+1)+'. "'+c.claim+'"</div><div class="quiz-options" style="flex-direction:row;justify-content:flex-start;gap:8px;flex-wrap:wrap;"><button class="quiz-opt" onclick="checkASN(this,'+i+',\'always\')" style="flex:0 0 110px;text-align:center;">Always</button><button class="quiz-opt" onclick="checkASN(this,'+i+',\'sometimes\')" style="flex:0 0 110px;text-align:center;">Sometimes</button><button class="quiz-opt" onclick="checkASN(this,'+i+',\'never\')" style="flex:0 0 110px;text-align:center;">Never</button></div><div class="quiz-feedback" id="asn-fb-'+i+'"></div></div>';
+  });
+  document.getElementById('asnArea').innerHTML=html;
+  document.getElementById('asnArea').dataset.claims=JSON.stringify(claims);
+}
+function checkASN(btn,i,picked){
+  const claims=JSON.parse(document.getElementById('asnArea').dataset.claims);
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('asn-fb-'+i);
+  const c=claims[i];
+  if(picked===c.ans){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.innerHTML='✅ <strong>'+c.ans.toUpperCase()+'.</strong> '+c.why;playSound('correct')}
+  else{btn.classList.add('wrong');opts.forEach(o=>{if(o.textContent.toLowerCase()===c.ans)o.classList.add('correct')});fb.className='quiz-feedback show wrong-fb';fb.innerHTML='❌ Correct: <strong>'+c.ans+'</strong>. '+c.why;playSound('wrong')}
+}
+let dcUsed=[];
+function buildDigitCard(){
+  document.getElementById('digitCardArea').innerHTML='<div class="flex-center" style="font-size:1.8rem;font-weight:900;margin:14px 0;flex-wrap:wrap;">'+
+    '<span style="color:var(--text);">0.4</span>'+
+    '<button class="action-btn" id="dc-slot-1" style="background:rgba(255,255,255,0.06);color:var(--text);border:2px dashed var(--accent);min-width:60px;font-size:1.6rem;font-weight:900;" onclick="dcReset()">_</button>'+
+    '<span style="color:var(--text);margin:0 14px;font-size:1.6rem;">&lt;</span>'+
+    '<span style="color:var(--text);">0.</span>'+
+    '<button class="action-btn" id="dc-slot-2" style="background:rgba(255,255,255,0.06);color:var(--text);border:2px dashed var(--accent);min-width:60px;font-size:1.6rem;font-weight:900;" onclick="dcReset()">_</button>'+
+    '<span style="color:var(--text);">5</span></div>'+
+    '<div class="flex-center" id="dc-cards"></div>'+
+    '<div class="btn-row"><button class="action-btn check-btn" onclick="dcCheck()">✓ Check my answer</button><button class="action-btn" style="background:var(--accent);" onclick="dcReset()">↻ Reset</button></div>'+
+    '<div class="quiz-feedback" id="dcFb"></div>';
+  dcReset();
+}
+function dcReset(){
+  dcUsed=[];
+  document.getElementById('dc-slot-1').textContent='_';
+  document.getElementById('dc-slot-2').textContent='_';
+  let html='';
+  [3,5,7,9].forEach(d=>{html+='<button class="action-btn" style="background:var(--accent);min-width:54px;font-size:1.4rem;font-weight:900;" onclick="dcPlace('+d+')">'+d+'</button>'});
+  document.getElementById('dc-cards').innerHTML=html;
+  const fb=document.getElementById('dcFb');if(fb)fb.className='quiz-feedback';
+}
+function dcPlace(d){
+  if(dcUsed.includes(d))return;
+  const s1=document.getElementById('dc-slot-1');
+  const s2=document.getElementById('dc-slot-2');
+  if(s1.textContent==='_'){s1.textContent=d;dcUsed.push(d)}
+  else if(s2.textContent==='_'){s2.textContent=d;dcUsed.push(d)}
+  playSound('click');
+}
+function dcCheck(){
+  const a=parseInt(document.getElementById('dc-slot-1').textContent);
+  const b=parseInt(document.getElementById('dc-slot-2').textContent);
+  const fb=document.getElementById('dcFb');
+  if(isNaN(a)||isNaN(b)){fb.className='quiz-feedback show wrong-fb';fb.textContent='⚠️ Place a digit in each box first.';return}
+  const left=0.4+a/100;
+  const right=b/10+0.05;
+  if(left<right){fb.className='quiz-feedback show correct-fb';fb.innerHTML='🎉 Correct! '+left.toFixed(2)+' &lt; '+right.toFixed(2)+' ✅<br>Other valid combos exist — try resetting and finding more!';playSound('correct')}
+  else{fb.className='quiz-feedback show wrong-fb';fb.innerHTML='❌ '+left.toFixed(2)+' is not less than '+right.toFixed(2)+'. The right side needs a bigger tenths digit. Try again.';playSound('wrong')}
+}
+function buildWhoRight(){
+  const cases=[
+    {a:'Eva: "0.45 has 4 tenths and 5 hundredths."',b:'Max: "0.45 has 45 hundredths."',right:'both',why:'Both! 4 tenths + 5 hundredths = 45 hundredths — two valid partitions of the same number.'},
+    {a:'Tom: "0.6 is the same as 0.60."',b:'Mia: "0.6 is bigger than 0.60."',right:'tom',why:'Tom. The trailing zero adds nothing. 0.6 = 0.60 = 6 tenths = 60 hundredths.'},
+    {a:'Aisha: "8 hundredths is the same as 800."',b:'Ben: "8 hundredths is 0.08."',right:'ben',why:'Ben. 8 hundredths = 8/100 = 0.08. Aisha confused hundredths with hundreds.'},
+  ];
+  let html='';
+  cases.forEach((c,i)=>{
+    html+='<div class="quiz-question"><div class="q-text">'+(i+1)+'.<br>'+c.a+'<br>'+c.b+'<br><strong>Who is right?</strong></div><div class="quiz-options" style="flex-direction:row;justify-content:flex-start;gap:8px;flex-wrap:wrap;">';
+    [c.a.split(':')[0],c.b.split(':')[0],'Both'].forEach(o=>{
+      const key=o.toLowerCase();
+      html+='<button class="quiz-opt" style="flex:0 0 130px;text-align:center;" onclick="checkWR(this,'+i+',\''+key+'\')">'+o+'</button>';
+    });
+    html+='</div><div class="quiz-feedback" id="wr-fb-'+i+'"></div></div>';
+  });
+  document.getElementById('whoRightArea').innerHTML=html;
+  document.getElementById('whoRightArea').dataset.cases=JSON.stringify(cases);
+}
+function checkWR(btn,i,picked){
+  const cases=JSON.parse(document.getElementById('whoRightArea').dataset.cases);
+  const c=cases[i];
+  const opts=btn.parentElement.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('wr-fb-'+i);
+  if(picked===c.right){btn.classList.add('correct');fb.className='quiz-feedback show correct-fb';fb.textContent='✅ '+c.why;playSound('correct')}
+  else{btn.classList.add('wrong');fb.className='quiz-feedback show wrong-fb';fb.textContent='❌ '+c.why;playSound('wrong')}
+}
+function buildPattern(){
+  const sets=[
+    {seq:['? ÷ 10 = 2.4','? ÷ 10 = 0.24','? ÷ 100 = 0.24'],ans:[24,2.4,24],insight:'Notice: 24 ÷ 10 = 2.4 (one shift), and 24 ÷ 100 = 0.24 (two shifts). Same digits, different positions.'},
+    {seq:['8 ÷ 10 = ?','80 ÷ 100 = ?','? ÷ 10 = 0.8'],ans:[0.8,0.8,8],insight:'8 ÷ 10 and 80 ÷ 100 are both 0.8 because 80/100 = 8/10. Working backwards: ? ÷ 10 = 0.8 → ? = 8.'}
+  ];
+  const p=sets[Math.floor(Math.random()*sets.length)];
+  let html='<div class="quiz-question"><div class="q-text">Find the missing number in each line:</div>';
+  p.seq.forEach((s,i)=>{
+    html+='<div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;"><span style="font-weight:600;">'+(i+1)+'.</span><span style="font-family:Inter;font-size:1.05rem;">'+s+'</span><input type="number" step="0.01" id="pat-input-'+i+'" class="num-input" style="width:90px;font-size:1rem;"></div>';
+  });
+  html+='<div class="btn-row" style="justify-content:flex-start;"><button class="action-btn check-btn" onclick="checkPattern()">✓ Check all</button><button class="action-btn" style="background:var(--accent);" onclick="buildPattern()">↻ New set</button></div><div class="quiz-feedback" id="patFb"></div></div>';
+  document.getElementById('patternArea').innerHTML=html;
+  document.getElementById('patternArea').dataset.ans=JSON.stringify(p.ans);
+  document.getElementById('patternArea').dataset.insight=p.insight;
+}
+function checkPattern(){
+  const ans=JSON.parse(document.getElementById('patternArea').dataset.ans);
+  const insight=document.getElementById('patternArea').dataset.insight;
+  let allRight=true;
+  let report='';
+  ans.forEach((a,i)=>{
+    const v=parseFloat(document.getElementById('pat-input-'+i).value);
+    if(Math.abs(v-a)<1e-9){report+='Q'+(i+1)+': ✅ &nbsp;'}
+    else{report+='Q'+(i+1)+': ❌ (answer: '+a+') &nbsp;';allRight=false}
+  });
+  const fb=document.getElementById('patFb');
+  fb.className='quiz-feedback show '+(allRight?'correct-fb':'wrong-fb');
+  fb.innerHTML=report+'<br><br><strong>Insight:</strong> '+insight;
+  playSound(allRight?'correct':'wrong');
+}
+
+// ============ V2.7: MINI TEST 5 ============
+function buildMT5(){buildQuiz('miniTest5',[
+  {q:'1. ¼ as a decimal is:',opts:['0.14','0.25','0.4','0.75'],correct:1},
+  {q:'2. Which fraction equals 0.5?',opts:['1/5','½','5/100','5'],correct:1},
+  {q:'3. Which is bigger: 0.6 or ¾?',opts:['0.6','¾','They are equal'],correct:1},
+  {q:'4. Write 16 + 9/100 as a decimal:',opts:['16.9','16.09','16.90','1.609'],correct:1},
+  {q:'5. £4.05 in pence is:',opts:['45p','450p','405p','4050p'],correct:2},
+  {q:'6. 175cm in metres is:',opts:['1.75m','17.5m','0.175m','175m'],correct:0},
+  {q:'7. 3/10 = ?/100',opts:['3','13','30','300'],correct:2},
+  {q:'8. To make 1 whole: 4/10 + ?/100. The missing number is:',opts:['6','40','60','100'],correct:2},
+  {type:'explain',q:'9. Eva says "0.7 is the same as 0.70." Mia says "No — 0.7 is bigger because it has fewer digits." Who is right and why?',model:'Eva is right. The trailing zero in 0.70 doesn\'t change the value — both mean 7 tenths. We can write 0.7 = 7/10 = 70/100 = 0.70. Mia is wrong; counting digits doesn\'t determine size — place value does. Tip: when comparing decimals, give them the same number of decimal places (e.g. write 0.7 as 0.70 to compare with 0.65).'},
+],'mt5Result','Mini Test 5')}
+
+// ============ INIT ============
+window.addEventListener('DOMContentLoaded',()=>{
+  const s=loadState();
+  applyTheme(s.theme||'dark');
+  total=document.querySelectorAll('.slide').length;
+  document.getElementById('slideCounter').textContent='1 / '+total;
+  if(s.slide&&s.slide>0&&s.slide<total){
+    showSlide(s.slide);
+    showResumeToast(s.slide,total);
+  } else {
+    showSlide(0);
+  }
+  showKbdHint();
+});
+</script>
+</body>
+</html>
